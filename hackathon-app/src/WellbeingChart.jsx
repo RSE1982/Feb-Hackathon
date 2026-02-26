@@ -5,7 +5,7 @@ import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Toolti
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
 const WellbeingChart = ({ data }) => {
-  // Get latest quarter data
+  // Get latest quarter data (quarter 4)
   const latestData = data.filter(item => item.quarter === '2025_Q4');
   
   const chartData = {

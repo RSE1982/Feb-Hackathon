@@ -8,14 +8,16 @@ const LonelinessChart = ({ data }) => {
   // Calculate average loneliness percentages by quarter
   const quarterlyData = ['2025_Q1', '2025_Q2', '2025_Q3', '2025_Q4'].map(quarter => {
     const quarterItems = data.filter(item => item.quarter === quarter);
-    const avgLonely = quarterItems.reduce((sum, item) => sum + item.lonely_at_least_occasionally_pct, 0) / quarterItems.length;
-    const avgOften = quarterItems.reduce((sum, item) => sum + item.lonely_often_or_sometimes_pct, 0) / quarterItems.length;
+    if (quarterItems.length === 0) return null;
+    
+    const avgLonely = quarterItems.reduce((sum, item) => sum + (item.lonely_at_least_occasionally_pct || 0), 0) / quarterItems.length;
+    const avgOften = quarterItems.reduce((sum, item) => sum + (item.lonely_often_or_sometimes_pct || 0), 0) / quarterItems.length;
     return {
-      quarter: quarter.replace('2025_', 'Q'),
+      quarter: quarter.replace('2025_Q', 'Q'),
       lonely_at_least_occasionally_pct: Math.round(avgLonely),
       lonely_often_or_sometimes_pct: Math.round(avgOften),
     };
-  });
+  }).filter(Boolean); // Remove any null entries
 
   const chartData = {
     labels: quarterlyData.map(item => item.quarter),

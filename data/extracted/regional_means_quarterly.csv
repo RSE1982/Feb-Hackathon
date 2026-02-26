@@ -1,0 +1,37 @@
+quarter,region,life_satisfaction,worthwhile,happiness,anxiety,wellbeing_index
+2025_Q1,North East,6.9,7.4,7.0,3.9,4.35
+2025_Q1,North West,6.9,7.3,6.9,3.7,4.35
+2025_Q1,Yorkshire and The Humber,6.9,7.0,7.1,3.9,4.28
+2025_Q1,East Midlands,6.8,7.2,7.0,4.0,4.25
+2025_Q1,West Midlands,6.8,7.1,6.9,3.9,4.22
+2025_Q1,East of England,7.1,7.3,7.0,3.9,4.38
+2025_Q1,London,6.7,7.3,6.9,4.1,4.2
+2025_Q1,South East,6.9,7.3,7.0,4.0,4.3
+2025_Q1,South West,6.9,7.3,7.0,3.8,4.35
+2025_Q2,North East,6.7,7.2,7.0,4.0,4.22
+2025_Q2,North West,6.8,7.2,7.0,3.8,4.3
+2025_Q2,Yorkshire and The Humber,6.9,7.3,7.1,3.9,4.35
+2025_Q2,East Midlands,7.0,7.3,7.1,4.1,4.32
+2025_Q2,West Midlands,6.8,7.1,6.8,3.9,4.2
+2025_Q2,East of England,7.0,7.4,7.2,3.6,4.5
+2025_Q2,London,6.8,7.2,6.9,4.0,4.22
+2025_Q2,South East,6.9,7.3,7.1,3.9,4.35
+2025_Q2,South West,7.0,7.2,7.1,3.8,4.37
+2025_Q3,North East,6.7,7.2,7.0,4.5,4.1
+2025_Q3,North West,6.7,7.1,6.7,4.0,4.12
+2025_Q3,Yorkshire and The Humber,6.7,7.0,6.7,4.2,4.05
+2025_Q3,East Midlands,6.8,7.0,6.9,4.0,4.18
+2025_Q3,West Midlands,6.6,6.9,6.7,4.0,4.05
+2025_Q3,East of England,7.0,7.4,7.2,4.0,4.4
+2025_Q3,London,6.9,7.2,7.1,4.1,4.28
+2025_Q3,South East,6.9,7.3,7.1,3.8,4.37
+2025_Q3,South West,7.0,7.3,7.1,3.6,4.45
+2025_Q4,North East,6.7,6.9,6.8,4.2,4.05
+2025_Q4,North West,6.8,7.2,6.9,3.9,4.25
+2025_Q4,Yorkshire and The Humber,6.9,7.4,7.2,4.0,4.38
+2025_Q4,East Midlands,6.7,7.0,6.8,3.9,4.15
+2025_Q4,West Midlands,7.0,7.3,7.0,4.1,4.3
+2025_Q4,East of England,6.7,7.2,6.9,3.9,4.23
+2025_Q4,London,6.7,7.2,6.9,4.1,4.18
+2025_Q4,South East,6.8,7.2,7.0,3.9,4.28
+2025_Q4,South West,6.8,7.2,7.0,4.1,4.22

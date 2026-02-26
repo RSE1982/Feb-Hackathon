@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import WellbeingChart from './WellbeingChart';
 import LonelinessChart from './LonelinessChart';
+import AIQuestionForm from './AIQuestionForm';
 
 function App() {
   const [data, setData] = useState([]);
@@ -103,6 +104,11 @@ function App() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           <WellbeingChart data={data} />
           <LonelinessChart data={data} />
+        </div>
+
+        {/* AI Question Form */}
+        <div className="mt-8">
+          <AIQuestionForm data={data} />
         </div>
 
         {/* Data Summary */}

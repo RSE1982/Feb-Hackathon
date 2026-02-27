@@ -4,6 +4,7 @@ import LevelTabs from '../components/LevelTabs';
 import FiltersPanel from '../components/FiltersPanel';
 import KpiRow from '../components/KpiRow';
 import InsightCards from '../components/InsightCards';
+import DashboardHeader from '../components/DashboardHeader';
 
 import TrendLinePlot from '../components/plots/TrendLinePlot';
 import ComparisonBarPlot from '../components/plots/ComparisonBarPlot';
@@ -11,7 +12,7 @@ import LonelinessStackedBar from '../components/plots/LonelinessStackedBar';
 import ChoroplethMap from '../components/plots/ChoroplethMap';
 
 import { useWellbeingData } from '../hooks/useWellbeingData';
-//import { insightsEngine } from '../utils/insightsEngine'
+
 
 export default function Dashboard() {
 	const { data, loading, error, quarters, metrics, getGeographies } =
@@ -102,22 +103,12 @@ export default function Dashboard() {
 		<div className='min-h-screen bg-linear-to-br from-pink-50 to-blue-50'>
 			<div className='max-w-6xl mx-auto p-6 space-y-6'>
 				{/* Header */}
-				<header className='space-y-1'>
-					<h1 className='text-2xl font-bold text-gray-900'>
-						Wellbeing & Loneliness Dashboard
-					</h1>
-					<p className='text-sm text-gray-700'>
-						Explore insights by <span className='font-semibold'>level</span>,{' '}
-						<span className='font-semibold'>quarter</span>, and{' '}
-						<span className='font-semibold'>metric</span>.
-					</p>
-					<div className='text-xs text-gray-600'>
-						Selected: <span className='font-semibold'>{level}</span> • Q
-						<span className='font-semibold'>{quarter}</span> •{' '}
-						<span className='font-semibold'>{metric}</span> •{' '}
-						<span className='font-semibold'>{geography || '—'}</span>
-					</div>
-				</header>
+				<DashboardHeader
+					level={level}
+					quarter={quarter}
+					metric={metric}
+					geography={geography}
+				/>
 
 				{/* Level selection */}
 				<LevelTabs level={level} onChange={setLevel} />

@@ -1,6 +1,10 @@
 import React from 'react';
 
+//import { useGeoJson } from "../../hooks/useGeoJson";
+
 export default function ChoroplethMap({ level, quarter, metric }) {
+	//const { geojson } = useGeoJson(level);
+
 	return (
 		<div className='bg-white/70 rounded-2xl shadow p-4'>
 			<h2 className='font-semibold mb-2'>Map</h2>

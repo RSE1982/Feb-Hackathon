@@ -1,0 +1,195 @@
+import React, { useEffect, useMemo, useState } from 'react';
+
+import LevelTabs from '../components/LevelTabs';
+import FiltersPanel from '../components/FiltersPanel';
+import KpiRow from '../components/KpiRow';
+import InsightCards from '../components/InsightCards';
+
+import TrendLinePlot from '../components/plots/TrendLinePlot';
+import ComparisonBarPlot from '../components/plots/ComparisonBarPlot';
+import LonelinessStackedBar from '../components/plots/LonelinessStackedBar';
+import ChoroplethMap from '../components/plots/ChoroplethMap';
+
+import { useWellbeingData } from '../hooks/useWellbeingData';
+//import { insightsEngine } from '../utils/insightsEngine'
+
+export default function Dashboard() {
+	const { data, loading, error, quarters, metrics, getGeographies } =
+		useWellbeingData();
+
+	// --- UI state (single source of truth) ---
+	const [level, setLevel] = useState('national'); // national | country | region
+	const [quarter, setQuarter] = useState(1);
+	const [metric, setMetric] = useState('wellbeing_index');
+	const [geography, setGeography] = useState('');
+
+	// --- Derived lists from loaded data ---
+	const geographies = useMemo(
+		() => getGeographies(level),
+		[getGeographies, level],
+	);
+
+	// Ensure quarter stays valid once data loads
+	useEffect(() => {
+		if (!quarters?.length) return;
+		if (!quarters.includes(quarter)) setQuarter(quarters[0]);
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [quarters]);
+
+	// Ensure geography stays valid when level changes / data loads
+	useEffect(() => {
+		if (!geographies.length) return;
+		if (!geography || !geographies.includes(geography)) {
+			// sensible defaults
+			if (level === 'national' && geographies.includes('Great Britain')) {
+				setGeography('Great Britain');
+			} else {
+				setGeography(geographies[0]);
+			}
+		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [geographies, level]);
+
+	// --- Derived datasets (do NOT store in state) ---
+	const levelQuarterData = useMemo(() => {
+		return data.filter(
+			(d) => d.geography_level === level && d.quarter === quarter,
+		);
+	}, [data, level, quarter]);
+
+	const geoQuarterRow = useMemo(() => {
+		return data.find(
+			(d) =>
+				d.geography_level === level &&
+				d.quarter === quarter &&
+				d.geography === geography,
+		);
+	}, [data, level, quarter, geography]);
+
+	const geoTrendData = useMemo(() => {
+		return data
+			.filter((d) => d.geography_level === level && d.geography === geography)
+			.sort((a, b) => a.quarter - b.quarter);
+	}, [data, level, geography]);
+
+	// --- Render states ---
+	if (loading) {
+		return (
+			<div className='min-h-screen bg-linear-to-br from-pink-50 to-blue-50'>
+				<div className='max-w-6xl mx-auto p-6'>Loading data…</div>
+			</div>
+		);
+	}
+
+	if (error) {
+		return (
+			<div className='min-h-screen bg-linear-to-br from-pink-50 to-blue-50'>
+				<div className='max-w-6xl mx-auto p-6 text-red-700'>
+					<div className='bg-white/70 rounded-2xl shadow p-4'>
+						<div className='font-semibold mb-1'>Failed to load data</div>
+						<div className='text-sm'>{error}</div>
+						<div className='text-xs mt-2 opacity-70'>
+							Check that <code>public/data/wellbeing_master.json</code> exists
+							and is reachable.
+						</div>
+					</div>
+				</div>
+			</div>
+		);
+	}
+
+	return (
+		<div className='min-h-screen bg-linear-to-br from-pink-50 to-blue-50'>
+			<div className='max-w-6xl mx-auto p-6 space-y-6'>
+				{/* Header */}
+				<header className='space-y-1'>
+					<h1 className='text-2xl font-bold text-gray-900'>
+						Wellbeing & Loneliness Dashboard
+					</h1>
+					<p className='text-sm text-gray-700'>
+						Explore insights by <span className='font-semibold'>level</span>,{' '}
+						<span className='font-semibold'>quarter</span>, and{' '}
+						<span className='font-semibold'>metric</span>.
+					</p>
+					<div className='text-xs text-gray-600'>
+						Selected: <span className='font-semibold'>{level}</span> • Q
+						<span className='font-semibold'>{quarter}</span> •{' '}
+						<span className='font-semibold'>{metric}</span> •{' '}
+						<span className='font-semibold'>{geography || '—'}</span>
+					</div>
+				</header>
+
+				{/* Level selection */}
+				<LevelTabs level={level} onChange={setLevel} />
+
+				{/* Filters */}
+				<FiltersPanel
+					level={level}
+					quarter={quarter}
+					onQuarterChange={setQuarter}
+					metric={metric}
+					onMetricChange={setMetric}
+					geography={geography}
+					onGeographyChange={setGeography}
+					quarters={quarters?.length ? quarters : [1, 2, 3, 4]}
+					geographies={geographies}
+					metrics={metrics}
+				/>
+
+				{/* KPIs (placeholder component can ignore data for now) */}
+				<KpiRow
+					level={level}
+					quarter={quarter}
+					geography={geography}
+					row={geoQuarterRow}
+				/>
+
+				{/* Charts */}
+				<div className='grid grid-cols-1 lg:grid-cols-2 gap-6'>
+					<TrendLinePlot
+						title='Trend over time'
+						metric={metric}
+						level={level}
+						geography={geography}
+						data={geoTrendData}
+					/>
+					<ComparisonBarPlot
+						title='Comparison (selected quarter)'
+						metric={metric}
+						level={level}
+						quarter={quarter}
+						data={levelQuarterData}
+					/>
+				</div>
+
+				<LonelinessStackedBar
+					title='Loneliness distribution (selected quarter)'
+					level={level}
+					quarter={quarter}
+					data={levelQuarterData}
+				/>
+
+				{/* Map (placeholder for now, but props are correct) */}
+				<ChoroplethMap
+					level={level}
+					quarter={quarter}
+					metric={metric}
+					data={data}
+				/>
+
+				{/* Insights */}
+				<InsightCards
+					level={level}
+					quarter={quarter}
+					metric={metric}
+					data={levelQuarterData}
+				/>
+
+				<footer className='text-xs text-gray-600 pt-2'>
+					Next step: replace placeholders with Plotly charts + implement
+					InsightEngine calculations.
+				</footer>
+			</div>
+		</div>
+	);
+}

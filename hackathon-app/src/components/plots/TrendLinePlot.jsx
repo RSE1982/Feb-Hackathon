@@ -1,0 +1,15 @@
+import React from 'react';
+
+export default function TrendLinePlot({ title = 'Trend', metric }) {
+	return (
+		<div className='bg-white/70 rounded-2xl shadow p-4'>
+			<h2 className='font-semibold mb-2'>{title}</h2>
+			<div className='text-xs opacity-60 mb-4'>Metric: {metric}</div>
+			<div className='h-90 rounded-xl border flex items-center justify-center'>
+				<span className='text-sm opacity-70'>
+					Plotly trend chart placeholder
+				</span>
+			</div>
+		</div>
+	);
+}

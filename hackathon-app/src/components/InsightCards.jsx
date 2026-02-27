@@ -1,5 +1,7 @@
 import React from 'react';
 
+//import { insightsEngine } from '../utils/insightsEngine'
+
 export default function InsightCards({ level, quarter, metric }) {
 	const placeholders = [
 		'Top area (placeholder)',

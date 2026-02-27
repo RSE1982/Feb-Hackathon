@@ -1,0 +1,53 @@
+quarter,geography_level,geography,life_satisfaction,worthwhile,happiness,anxiety,wellbeing_index
+2025_Q1,country,England,6.9,7.3,7.0,3.9,4.32
+2025_Q1,country,Scotland,7.0,7.4,7.0,3.7,4.42
+2025_Q1,country,Wales,7.1,7.3,7.0,3.8,4.4
+2025_Q1,national,Great Britain,6.9,7.3,7.0,3.9,4.32
+2025_Q1,region,East Midlands,6.8,7.2,7.0,4.0,4.25
+2025_Q1,region,East of England,7.1,7.3,7.0,3.9,4.38
+2025_Q1,region,London,6.7,7.3,6.9,4.1,4.2
+2025_Q1,region,North East,6.9,7.4,7.0,3.9,4.35
+2025_Q1,region,North West,6.9,7.3,6.9,3.7,4.35
+2025_Q1,region,South East,6.9,7.3,7.0,4.0,4.3
+2025_Q1,region,South West,6.9,7.3,7.0,3.8,4.35
+2025_Q1,region,West Midlands,6.8,7.1,6.9,3.9,4.22
+2025_Q1,region,Yorkshire and The Humber,6.9,7.0,7.1,3.9,4.28
+2025_Q2,country,England,6.9,7.2,7.0,3.9,4.3
+2025_Q2,country,Scotland,7.0,7.2,7.1,3.9,4.35
+2025_Q2,country,Wales,6.8,7.3,7.0,3.9,4.3
+2025_Q2,national,Great Britain,6.9,7.2,7.0,3.9,4.3
+2025_Q2,region,East Midlands,7.0,7.3,7.1,4.1,4.32
+2025_Q2,region,East of England,7.0,7.4,7.2,3.6,4.5
+2025_Q2,region,London,6.8,7.2,6.9,4.0,4.22
+2025_Q2,region,North East,6.7,7.2,7.0,4.0,4.22
+2025_Q2,region,North West,6.8,7.2,7.0,3.8,4.3
+2025_Q2,region,South East,6.9,7.3,7.1,3.9,4.35
+2025_Q2,region,South West,7.0,7.2,7.1,3.8,4.37
+2025_Q2,region,West Midlands,6.8,7.1,6.8,3.9,4.2
+2025_Q2,region,Yorkshire and The Humber,6.9,7.3,7.1,3.9,4.35
+2025_Q3,country,England,6.8,7.2,6.9,4.0,4.22
+2025_Q3,country,Scotland,7.0,7.3,7.1,3.7,4.42
+2025_Q3,country,Wales,6.6,6.8,6.7,4.1,4.0
+2025_Q3,national,Great Britain,6.8,7.2,6.9,4.0,4.22
+2025_Q3,region,East Midlands,6.8,7.0,6.9,4.0,4.18
+2025_Q3,region,East of England,7.0,7.4,7.2,4.0,4.4
+2025_Q3,region,London,6.9,7.2,7.1,4.1,4.28
+2025_Q3,region,North East,6.7,7.2,7.0,4.5,4.1
+2025_Q3,region,North West,6.7,7.1,6.7,4.0,4.12
+2025_Q3,region,South East,6.9,7.3,7.1,3.8,4.37
+2025_Q3,region,South West,7.0,7.3,7.1,3.6,4.45
+2025_Q3,region,West Midlands,6.6,6.9,6.7,4.0,4.05
+2025_Q3,region,Yorkshire and The Humber,6.7,7.0,6.7,4.2,4.05
+2025_Q4,country,England,6.8,7.2,6.9,4.0,4.22
+2025_Q4,country,Scotland,6.9,7.3,7.0,3.9,4.32
+2025_Q4,country,Wales,6.8,7.2,7.0,4.3,4.18
+2025_Q4,national,Great Britain,6.8,7.2,7.0,4.0,4.25
+2025_Q4,region,East Midlands,6.7,7.0,6.8,3.9,4.15
+2025_Q4,region,East of England,6.7,7.2,6.9,3.9,4.23
+2025_Q4,region,London,6.7,7.2,6.9,4.1,4.18
+2025_Q4,region,North East,6.7,6.9,6.8,4.2,4.05
+2025_Q4,region,North West,6.8,7.2,6.9,3.9,4.25
+2025_Q4,region,South East,6.8,7.2,7.0,3.9,4.28
+2025_Q4,region,South West,6.8,7.2,7.0,4.1,4.22
+2025_Q4,region,West Midlands,7.0,7.3,7.0,4.1,4.3
+2025_Q4,region,Yorkshire and The Humber,6.9,7.4,7.2,4.0,4.38

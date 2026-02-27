@@ -1,2 +1,5 @@
 # Auto detect text files and perform LF normalization
 * text=auto
+# Enable LFS
+exports/*.html filter=lfs diff=lfs merge=lfs -text
+notebooks/*.ipynb filter=lfs diff=lfs merge=lfs -text

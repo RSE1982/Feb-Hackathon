@@ -19,7 +19,7 @@ const AIQuestionForm = ({ data }) => {
       const dataContext = data.map(row => ({
         year: row.year,
         quarter: row.quarter,
-        region: row.region,
+        region: row.geography,
         life_satisfaction: row.life_satisfaction,
         worthwhile: row.worthwhile,
         happiness: row.happiness,
@@ -30,15 +30,15 @@ const AIQuestionForm = ({ data }) => {
       }));
 
       const prompt = `You are an AI assistant specialized in analyzing UK wellbeing and loneliness data. 
-      
-Here is the dataset containing regional personal wellbeing and loneliness statistics for 2025:
+
+Here is the dataset containing regional personal wellbeing and loneliness statistics for 2025, sourced from the Office for National Statistics (ONS):
 
 ${JSON.stringify(dataContext, null, 2)}
 
 The data includes:
 - year: Year of data collection
 - quarter: Quarter (1, 2, 3, 4)
-- region: UK region name
+- region: UK region name (from geography field)
 - life_satisfaction: Life satisfaction score (0-10 scale)
 - worthwhile: Feeling that activities are worthwhile (0-10 scale)
 - happiness: Happiness rating (0-10 scale)
@@ -47,12 +47,12 @@ The data includes:
 - loneliness_often_pct: Percentage of people feeling lonely often or sometimes
 - loneliness_at_least_occasionally_pct: Percentage of people feeling lonely at least occasionally
 
-IMPORTANT GUARDRAILS:
-1. ONLY answer questions about this specific dataset
-2. If the question is outside the scope of this data, respond with: "I can only answer questions about the UK wellbeing and loneliness data provided."
-3. Do not make up information or use external knowledge
-4. Be helpful and specific with your answers
-5. Use the actual data values to support your answers
+IMPORTANT GUIDELINES:
+1. Answer questions about this specific dataset, its structure, contents, and analysis
+2. You can answer questions about: data source, regions, time periods, metrics, calculations, and patterns
+3. If the question is completely unrelated to wellbeing/loneliness data or this dataset, respond with: "I can only answer questions about the UK wellbeing and loneliness data provided."
+4. Use the actual data values to support your answers
+5. Be helpful and specific with your answers
 
 User question: ${question}`;
 

@@ -1,0 +1,53 @@
+quarter,geography_level,geography,often,some_time,occasionally,hardly_ever,never,lonely_at_least_occasionally_pct,lonely_often_or_sometimes_pct
+2025_Q1,country,England,7,20,24,29,18,51,27
+2025_Q1,country,Scotland,8,15,22,33,20,45,23
+2025_Q1,country,Wales,6,15,30,28,18,51,21
+2025_Q1,national,Great Britain,7,19,24,29,19,50,26
+2025_Q1,region,East Midlands,6,21,25,26,20,52,27
+2025_Q1,region,East of England,5,18,24,30,20,47,23
+2025_Q1,region,London,7,22,25,29,13,54,29
+2025_Q1,region,North East,9,19,19,28,23,47,28
+2025_Q1,region,North West,7,19,22,30,19,48,26
+2025_Q1,region,South East,6,18,27,28,18,51,24
+2025_Q1,region,South West,7,18,22,32,18,47,25
+2025_Q1,region,West Midlands,5,21,20,29,22,46,26
+2025_Q1,region,Yorkshire and The Humber,9,20,27,26,17,56,29
+2025_Q2,country,England,7,18,25,30,17,50,25
+2025_Q2,country,Scotland,9,17,24,28,20,50,26
+2025_Q2,country,Wales,8,17,25,29,19,50,25
+2025_Q2,national,Great Britain,7,18,25,30,18,50,25
+2025_Q2,region,East Midlands,5,17,27,30,19,49,22
+2025_Q2,region,East of England,6,18,24,31,18,48,24
+2025_Q2,region,London,8,18,27,26,18,53,26
+2025_Q2,region,North East,6,18,28,25,18,52,24
+2025_Q2,region,North West,7,19,25,30,17,51,26
+2025_Q2,region,South East,6,17,25,32,18,48,23
+2025_Q2,region,South West,7,17,26,32,18,50,24
+2025_Q2,region,West Midlands,8,18,24,31,17,50,26
+2025_Q2,region,Yorkshire and The Humber,7,19,25,33,15,51,26
+2025_Q3,country,England,7,19,25,29,18,51,26
+2025_Q3,country,Scotland,4,19,26,29,20,49,23
+2025_Q3,country,Wales,8,23,27,27,13,58,31
+2025_Q3,national,Great Britain,7,19,25,29,18,51,26
+2025_Q3,region,East Midlands,9,15,27,29,18,51,24
+2025_Q3,region,East of England,4,18,22,32,21,44,22
+2025_Q3,region,London,5,19,28,29,16,52,24
+2025_Q3,region,North East,12,23,20,29,14,55,35
+2025_Q3,region,North West,7,23,23,28,18,53,30
+2025_Q3,region,South East,7,17,26,29,19,50,24
+2025_Q3,region,South West,6,17,27,29,19,50,23
+2025_Q3,region,West Midlands,10,22,21,25,19,53,32
+2025_Q3,region,Yorkshire and The Humber,10,17,24,26,18,51,27
+2025_Q4,country,England,7,17,27,29,18,51,24
+2025_Q4,country,Scotland,9,19,26,28,17,54,28
+2025_Q4,country,Wales,10,18,18,32,19,46,28
+2025_Q4,national,Great Britain,7,17,26,29,18,50,24
+2025_Q4,region,East Midlands,7,15,27,32,16,49,22
+2025_Q4,region,East of England,10,16,32,23,18,58,26
+2025_Q4,region,London,7,15,29,30,15,51,22
+2025_Q4,region,North East,8,26,20,27,18,54,34
+2025_Q4,region,North West,6,18,24,33,17,48,24
+2025_Q4,region,South East,5,19,25,29,19,49,24
+2025_Q4,region,South West,6,20,22,31,19,48,26
+2025_Q4,region,West Midlands,5,16,31,28,18,52,21
+2025_Q4,region,Yorkshire and The Humber,6,12,27,30,22,45,18

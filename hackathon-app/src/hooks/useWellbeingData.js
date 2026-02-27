@@ -16,7 +16,9 @@ export function useWellbeingData() {
                 setLoading(true);
                 setError("");
 
-                const res = await fetch("/data/wellbeing_master.json");
+                const res = await fetch(
+                    `${import.meta.env.BASE_URL}data/wellbeing_master.json`
+                );
 
                 if (!res.ok) {
                     throw new Error(`HTTP ${res.status}`);

@@ -109,23 +109,25 @@ export default function Dashboard() {
 					metric={metric}
 					geography={geography}
 				/>
-
-				{/* Level selection */}
-				<LevelTabs level={level} onChange={setLevel} />
-
-				{/* Filters */}
-				<FiltersPanel
-					level={level}
-					quarter={quarter}
-					onQuarterChange={setQuarter}
-					metric={metric}
-					onMetricChange={setMetric}
-					geography={geography}
-					onGeographyChange={setGeography}
-					quarters={quarters?.length ? quarters : [1, 2, 3, 4]}
-					geographies={geographies}
-					metrics={metrics}
-				/>
+				{/* Filters and level selection */}
+				<div className="sticky top-0 z-30">
+					{/* Level selection */}
+					<LevelTabs level={level} onChange={setLevel} />
+					<div className='mt-4 mb-4'></div>
+					{/* Filters */}
+					<FiltersPanel
+						level={level}
+						quarter={quarter}
+						onQuarterChange={setQuarter}
+						metric={metric}
+						onMetricChange={setMetric}
+						geography={geography}
+						onGeographyChange={setGeography}
+						quarters={quarters?.length ? quarters : [1, 2, 3, 4]}
+						geographies={geographies}
+						metrics={metrics}
+						/>
+				</div>
 
 				{/* KPIs (placeholder component can ignore data for now) */}
 				<KpiRow
@@ -165,7 +167,7 @@ export default function Dashboard() {
 					level={level}
 					quarter={quarter}
 					metric={metric}
-					data={data}
+					rows={data}
 				/>
 
 				{/* Insights */}

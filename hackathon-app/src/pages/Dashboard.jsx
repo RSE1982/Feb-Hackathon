@@ -110,7 +110,7 @@ export default function Dashboard() {
 					geography={geography}
 				/>
 				{/* Filters and level selection */}
-				<div className="sticky top-0 z-30">
+				<div className='sticky top-0 z-30'>
 					{/* Level selection */}
 					<LevelTabs level={level} onChange={setLevel} />
 					<div className='mt-4 mb-4'></div>
@@ -126,7 +126,7 @@ export default function Dashboard() {
 						quarters={quarters?.length ? quarters : [1, 2, 3, 4]}
 						geographies={geographies}
 						metrics={metrics}
-						/>
+					/>
 				</div>
 
 				{/* KPIs (placeholder component can ignore data for now) */}
@@ -175,7 +175,7 @@ export default function Dashboard() {
 					level={level}
 					quarter={quarter}
 					metric={metric}
-					data={levelQuarterData}
+					allData={data}
 				/>
 
 				<footer className='text-xs text-gray-600 pt-2'>

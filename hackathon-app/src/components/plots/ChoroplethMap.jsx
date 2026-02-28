@@ -106,36 +106,43 @@ export default function ChoroplethMap({ rows = [], level, quarter, metric }) {
 	}
 
 	return (
-		<div className='rounded-xl border bg-white p-2'>
-			<Plot
-				data={[
-					{
-						type: 'choropleth',
-						geojson,
-						featureidkey: feature.idKey,
-						locations: geoLocations,
-						z: zValues,
-						hovertemplate: '%{location}<br>' + metric + ': %{z}<extra></extra>',
-						marker: { line: { width: 0.6 } },
-						colorbar: { title: metric },
-					},
-				]}
-				layout={{
-					dragmode: false,
-					title: `${level} — Q${qNum} — ${metric}`,
-					geo: { fitbounds: 'locations', visible: false },
-					margin: { l: 10, r: 10, t: 60, b: 10 },
-					height: 650,
-				}}
-				config={{
-					displayModeBar: false, // hides toolbar
-					scrollZoom: false, // disables scroll wheel zoom
-					doubleClick: false, // disables double-click zoom
-					responsive: true, // allows resizing with window size
-				}}
-				style={{ width: '100%' }}
-				useResizeHandler
-			/>
+		<div className='bg-white/70 rounded-2xl shadow p-4'>
+			<h2 className='font-semibold mb-2'>Map</h2>
+			<div className='text-xs opacity-60 mb-4'>
+				{level} • Q{quarter} • {metric}
+			</div>
+			<div className='rounded-xl border bg-white p-2'>
+				<Plot
+					data={[
+						{
+							type: 'choropleth',
+							geojson,
+							featureidkey: feature.idKey,
+							locations: geoLocations,
+							z: zValues,
+							hovertemplate: '%{location}<br>' + metric + ': %{z}<extra></extra>',
+							marker: { line: { width: 0.6 } },
+							colorbar: { title: metric },
+						},
+					]}
+					layout={{
+						dragmode: false,
+						title: `${level} — Q${qNum} — ${metric}`,
+						geo: { fitbounds: 'locations', visible: false },
+						margin: { l: 10, r: 10, t: 60, b: 10 },
+						height: 650,
+					}}
+					config={{
+						displayModeBar: false, // hides toolbar
+						scrollZoom: false, // disables scroll wheel zoom
+						doubleClick: false, // disables double-click zoom
+						responsive: true, // allows resizing with window size
+					}}
+					style={{ width: '100%' }}
+					useResizeHandler
+				/>
+			</div>
 		</div>
+		
 	);
 }

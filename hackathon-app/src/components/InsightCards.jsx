@@ -1,14 +1,10 @@
-import React from 'react';
+import React, { useMemo } from 'react';
+import { getInsights } from '../utils/insightsEngine';
 
-//import { insightsEngine } from '../utils/insightsEngine'
-
-export default function InsightCards({ level, quarter, metric }) {
-	const placeholders = [
-		'Top area (placeholder)',
-		'Bottom area (placeholder)',
-		'Biggest change (placeholder)',
-		'Most volatile (placeholder)',
-	];
+export default function InsightCards({ level, quarter, metric, allData }) {
+	const insights = useMemo(() => {
+		return getInsights({ allData: allData ?? [], level, quarter, metric });
+	}, [allData, level, quarter, metric]);
 
 	return (
 		<div className='bg-white/70 rounded-2xl shadow p-4'>
@@ -20,10 +16,13 @@ export default function InsightCards({ level, quarter, metric }) {
 			</div>
 
 			<div className='grid grid-cols-1 md:grid-cols-2 gap-3'>
-				{placeholders.map((t) => (
-					<div key={t} className='bg-white rounded-xl border p-3'>
-						<div className='text-sm font-semibold'>{t}</div>
-						<div className='text-xs opacity-70 mt-1'>To be implemented</div>
+				{insights.map((ins) => (
+					<div key={ins.id} className='bg-white rounded-xl border p-3'>
+						<div className='text-sm font-semibold'>{ins.title}</div>
+						<div className='text-sm mt-1'>{ins.value}</div>
+						{ins.subtitle ? (
+							<div className='text-xs opacity-70 mt-1'>{ins.subtitle}</div>
+						) : null}
 					</div>
 				))}
 			</div>

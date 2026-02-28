@@ -114,6 +114,7 @@ export default function Dashboard() {
 				<LevelTabs level={level} onChange={setLevel} />
 
 				{/* Filters */}
+				<div className="sticky top-0 z-30">
 				<FiltersPanel
 					level={level}
 					quarter={quarter}
@@ -125,7 +126,8 @@ export default function Dashboard() {
 					quarters={quarters?.length ? quarters : [1, 2, 3, 4]}
 					geographies={geographies}
 					metrics={metrics}
-				/>
+					/>
+				</div>
 
 				{/* KPIs (placeholder component can ignore data for now) */}
 				<KpiRow

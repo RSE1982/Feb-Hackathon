@@ -165,7 +165,7 @@ export default function Dashboard() {
 					level={level}
 					quarter={quarter}
 					metric={metric}
-					data={data}
+					rows={data}
 				/>
 
 				{/* Insights */}

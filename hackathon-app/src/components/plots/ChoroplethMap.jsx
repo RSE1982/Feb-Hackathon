@@ -1,7 +1,12 @@
 import React, { useMemo } from 'react';
 import Plot from 'react-plotly.js';
 import { useGeoJson } from '../../hooks/useGeoJson';
+<<<<<<< Updated upstream
 import { capitalizeString } from '../../utils/capitalizeString';
+=======
+import { metricNiceName } from '../../utils/metricHelpers';
+import { useContainerWidth } from '../../hooks/useContainerWidth';
+>>>>>>> Stashed changes
 
 const quarterToNumber = (q) => {
 	if (typeof q === 'number') return q;
@@ -16,8 +21,14 @@ const normaliseRegionName = (name) => {
 };
 
 export default function ChoroplethMap({ rows = [], level, quarter, metric }) {
-	// ✅ Hook ALWAYS called (order never changes)
 	const { geojson, error, loading } = useGeoJson(level);
+	const { ref: plotWrapRef, width: plotWrapWidth } = useContainerWidth();
+	const isMobile = plotWrapWidth > 0 && plotWrapWidth < 768;
+
+	const bottomMargin = isMobile ? 55 : 75;
+	const colorbarY = isMobile ? -0.06 : -0.08; // less negative on mobile
+	const colorbarLen = isMobile ? 0.85 : 0.6; // wider on mobile
+	const colorbarThickness = isMobile ? 12 : 15;
 
 	// ✅ All memos ALWAYS called (order never changes)
 	const qNum = useMemo(() => quarterToNumber(quarter), [quarter]);
@@ -107,12 +118,16 @@ export default function ChoroplethMap({ rows = [], level, quarter, metric }) {
 	}
 
 	return (
-		<div className='bg-white/70 rounded-2xl shadow p-4'>
+		<div className='bg-white/70 rounded-2xl shadow p-4 h-130 md:h-180 flex flex-col'>
 			<h2 className='font-semibold mb-2'>Map</h2>
 			<div className='text-xs opacity-60 mb-4'>
 				{capitalizeString(level)} • Q{quarter} • {metric}
 			</div>
-			<div className='rounded-xl border bg-white p-2'>
+
+			<div
+				ref={plotWrapRef}
+				className='rounded-xl border bg-white p-2 flex-1 min-h-0'
+			>
 				<Plot
 					data={[
 						{
@@ -121,29 +136,42 @@ export default function ChoroplethMap({ rows = [], level, quarter, metric }) {
 							featureidkey: feature.idKey,
 							locations: geoLocations,
 							z: zValues,
-							hovertemplate: '%{location}<br>' + metric + ': %{z}<extra></extra>',
-							marker: { line: { width: 0.6 } },
-							colorbar: { title: metric },
+							hovertemplate:
+								'%{location}<br>' +
+								metricNiceName(metric) +
+								': %{z:.1f}<extra></extra>',
+							colorbar: {
+								title: { text: metricNiceName(metric), side: 'top' },
+								orientation: 'h',
+								x: 0.5,
+								xanchor: 'center',
+								y: colorbarY,
+								yanchor: 'bottom',
+								len: colorbarLen,
+								thickness: colorbarThickness,
+								tickformat: '.1f',
+							},
 						},
 					]}
 					layout={{
+						title: null, // avoid stealing vertical space
 						dragmode: false,
-						title: `${level} — Q${qNum} — ${metric}`,
 						geo: { fitbounds: 'locations', visible: false },
-						margin: { l: 10, r: 10, t: 60, b: 10 },
-						height: 650,
+
+						// Reserve space for the horizontal colorbar INSIDE the plot
+						margin: { l: 10, r: 10, t: 10, b: bottomMargin },
+						autosize: true,
 					}}
 					config={{
-						displayModeBar: false, // hides toolbar
-						scrollZoom: false, // disables scroll wheel zoom
-						doubleClick: false, // disables double-click zoom
-						responsive: true, // allows resizing with window size
+						displayModeBar: false,
+						scrollZoom: false,
+						doubleClick: false,
+						responsive: true,
 					}}
-					style={{ width: '100%' }}
+					style={{ width: '100%', height: '100%' }} // ✅ critical
 					useResizeHandler
 				/>
 			</div>
 		</div>
-		
 	);
 }

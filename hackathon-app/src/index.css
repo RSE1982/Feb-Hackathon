@@ -1,1 +1,14 @@
 @import "tailwindcss";
+
+@theme {
+  /* Define custom text-shadow utilities */
+  --text-shadow-outline: 
+    -1px -1px 1px #ddd,  
+     1px -1px 1px #ddd,  
+    -1px  1px 1px #ddd,  
+     1px  1px 1px #ddd;
+}
+
+@utility text-outline {
+  text-shadow: var(--text-shadow-outline);
+}

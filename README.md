@@ -1,26 +1,490 @@
 # Wellbeing Pulse
 
+[View the deployed Wellbeing Pulse project here](https://wxrren.github.io/Feb-Hackathon/)
+
+This app has been created as a project during [Code Institute](https://codeinstitute.net/)’s February Hackathon 2026
+
+![An image showing the website being responsive across multiple devices](/responsive-image.png)
 
 
-## Setup
+
+## **Table of Contents**
+
+### [Website Goals](#website-goals-1)
+
+### [User Experience](#user-experience-1)
+
+   * #### [Types of Users](#types-of-users-1)
+
+   * #### [User Stories](#user-stories-1)
+
+### [Design](#design-1)
+
+   * #### [Colour Scheme]()
+
+   * #### [Typography]()
+
+   * #### [Imagery]()
+
+   * #### [End Product Design Changes]()
+
+###  [Features](#features-1)
+
+   * #### [Existing Features](#existing-features-1)
 
 
-1. Move to application folder
-   ```bash
-   cd hackathon-app
-   ```
-   
-2. Install dependencies:
-   ```bash
-   npm install
-   ```
+### [Technologies Used](#technologies-used-1)
 
-3. (Optional) Create a local env file:
-   ```bash
-   copy .env.example .env
-   ```
+### [Frameworks, Libraries & Programs Used](#frameworks-libraries--programs-used-1)
 
-4. Run the app:
-   ```bash
-   npm run dev
-   ```
+### [Deployment and local development](#deployment-1)
+
+### [Credits](#credits-1)
+-----
+
+## [Website Goals](#website-goals-1)
+
+### Wellbeing & Loneliness Dashboard
+
+The goal of this project is to create an interactive, emotionally meaningful data dashboard that helps users explore wellbeing and loneliness trends across Great Britain.
+
+### Make Wellbeing Data Understandable
+
+We took a public UK ONS(Office for National Statistics) dataset on personal wellbeing and loneliness (Jan 2025–Jan 2026) and transformed this cleaned statistical data into clear, interactive visualisations so users can:
+
+* Track wellbeing trends over time
+
+* Compare countries and regions within the UK
+
+* Understand loneliness patterns
+
+* Explore anxiety and happiness changes
+
+The dashboard turns raw JSON data into something human-readable and intuitive.
+
+----
+
+## [User Experience](#user-experience-1)
+
+### [User Stories](#user-stories-1)
+
+To determine which approach to take with dashboard features, we identified the goals of different users — from first-time visitors exploring the data to returning and frequent users analysing trends.
+
+### [First Time User](#types-of-users-1)
+
+* As a user, I want to understand what the dashboard is showing and what type of data it contains.
+
+* As a user, I want to understand the difference between national, country, and regional views.
+
+* As a user, I want to easily change filters (level, quarter, metric, geography) to explore the data.
+
+* As a user, I want to see clear visualisations so I can quickly understand wellbeing trends without needing technical knowledge.
+
+* As a user, I want KPI summaries so I can grasp key figures at a glance.
+
+* As a user, I want to understand what each metric represents (e.g., wellbeing index, anxiety, loneliness rates).
+
+* As a user, I want to see how wellbeing changes over time through a clear trend line chart.
+
+### Returning User
+
+* As a user, I want to revisit specific geographies (e.g., Scotland or a specific region) to check how trends have changed.
+
+* As a user, I want to compare different metrics (e.g., anxiety vs happiness) across quarters.
+
+* As a user, I want to identify which regions perform better or worse within a selected quarter.
+
+* As a user, I want to explore loneliness distribution in more detail.
+
+* As a user, I want the dashboard to respond quickly when I adjust filters.
+
+### Frequent User Goals
+
+* As a user, I want to quickly switch between geographic levels to analyse trends efficiently.
+
+* As a user, I want to identify patterns such as volatility, spikes, or improvements over time.
+
+* As a user, I want consistent layout and interaction patterns so I can navigate confidently.
+
+* As a user, I want a clean, modern interface without unnecessary clutter.
+
+* As a user, I want the data visualisations to feel responsive and professional.
+-----
+
+## [Design](#design-1)
+
+---
+
+## [Features](#features-1)
+
+* View national, country, and regional wellbeing data.
+
+* Switch between multiple wellbeing and loneliness metrics.
+
+* Filter data by quarter.
+
+* Select specific geographies to explore trends.
+
+* View KPI summary cards for selected filters.
+
+* Visualise trends over time using interactive line charts.
+
+* Compare geographies within a selected quarter.
+
+* View loneliness distribution through stacked bar visualisations.
+
+* Explore geographic patterns through a choropleth map.
+
+* Responsive across all device sizes.
+
+## [Existing Features](#existing-features-1)
+
+### Dashboard Home (Landing dashboard view)
+
+* The first view when opening the site.
+
+* Displays selected level, quarter, metric, and geography clearly in the header.
+
+* Provides an immediate overview of wellbeing data through KPI cards and charts.
+
+* Clean, modern layout designed for quick comprehension.
+
+### Level Selection (National / Country / Region)
+
+* Allows users to switch between:
+
+* GB National (Great Britain)
+
+   * Country (England, Scotland, Wales)
+
+   * Region (English regions)
+
+* Automatically updates filters and visualisations based on selection.
+
+* Keeps state minimal and derived from user interaction.
+
+### Filters Panel
+
+* Allows users to:
+
+   * Select quarter (Q1–Q4)
+
+   * Select metric (wellbeing index, happiness, anxiety, loneliness, etc.)
+
+   * Select geography (based on chosen level)
+
+* All charts and KPIs update dynamically when filters change.
+
+* Ensures users can explore data intuitively.
+
+### KPI Summary Cards
+
+* Displays key metric values for the selected level, quarter, and geography.
+
+* Provides quick insight without requiring users to analyse charts.
+
+* Designed for clarity and immediate understanding.
+
+### Trend Line Chart
+
+* Shows how the selected metric changes over time for the chosen geography.
+
+* Uses Plotly interactive charts.
+
+* Allows users to visually identify:
+
+   * Trends
+
+   * Spikes
+
+   * Stability
+
+   * Volatility
+
+* Responds dynamically to filter changes.
+
+### Comparison Bar Chart
+
+* Displays selected metric across all geographies within the chosen level and quarter.
+
+* Helps users identify:
+
+   * Best performing geography
+
+   * Lowest performing geography
+
+   * Relative ranking
+
+* Encourages comparative insight.
+
+### Choropleth Map
+
+* Geographic visualisation of wellbeing metrics.
+
+* Highlights regional patterns and potential hotspots.
+
+* Provides strong visual storytelling impact.
+
+* Enables users to quickly interpret geographic differences.
+
+### Responsive Design
+
+* Optimised for desktop, tablet, and mobile devices.
+
+* Charts resize dynamically.
+
+* Layout adjusts for smaller screens without losing usability.
+-----
+
+## [Technologies Used](#technologies-used-1)
+
+### Frontend
+
+#### React
+
+* Used as the core framework for building the user interface.
+
+* Component-driven architecture supports reusability and clarity.
+
+* Makes dynamic filtering and data-driven rendering straightforward.
+
+#### Vite
+
+* A fast frontend build tool that supports React out of the box.
+
+* Provides instant server start and lightning-fast hot-module replacement.
+
+* Ideal for modern JS application development and deployment workflows.
+
+#### Tailwind CSS
+
+* Utility-first styling framework for rapid UI development.
+
+* Provides consistent spacing, typography, and responsive design without writing traditional CSS.
+
+* Helps enforce a clean, modern visual design across the dashboard.
+
+### Data Visualization
+
+#### react-plotly.js
+
+* The React wrapper for Plotly charts.
+
+* Enables highly interactive charts that respond to user filters.
+
+* Used to render:
+
+   * Trend line charts (wellbeing over time)
+
+   * Comparison bar charts (side-by-side geographies)
+
+   * Stacked bar charts (loneliness distribution)
+
+#### Plotly.js
+
+* The underlying charting library powering all visualisations.
+
+* Offers tooltips, smooth transitions, and responsive designs
+
+### Data & Logic
+
+#### JSON Data Source
+
+* The cleaned dataset wellbeing_master.json drives all visualisation, filtering, and insight generation.
+
+* Loaded once and shared across components via a custom hook.
+
+#### Custom Hooks
+
+* useWellbeingData() handles:
+
+   * Fetching the data
+
+   * Deriving lists like quarters, metrics, geographies
+
+   * Exposing data for filtering and use in components
+
+#### Memoization
+
+* useMemo is used to derive filtered datasets efficiently.
+
+* Prevents unnecessary recalculations and improves performance.
+-----
+
+## [Deployment and local development](#deployment-1)
+
+### GitHub Pages (Vite + GitHub Actions)
+
+This project is deployed using GitHub Pages with GitHub Actions to automatically build and publish the Vite application.
+
+To deploy the live version of the website:
+
+* Log in to GitHub and locate the repository
+   * Open the project [repository:](https://github.com/Wxrren/Feb-Hackathon)
+
+### 2. Enable GitHub Pages
+
+1. Click **Settings** at the top of the repository.
+2. In the left sidebar, select **Pages** under **Code and automation**.
+3. Under **Build and deployment**, ensure:
+   - **Source** is set to: `GitHub Actions`
+
+This ensures deployment runs via the workflow file instead of publishing a branch directly.
+
+### 3. Deployment Workflow
+
+This project uses a GitHub Actions workflow located at:
+
+`.github/workflows/deploy.yml`
+
+The workflow:
+
+- Installs dependencies
+- Builds the Vite app (`npm run build`)
+- Uploads the `dist` folder
+- Deploys automatically to GitHub Pages
+
+Deployment triggers when:
+
+- Code is pushed to the `main` branch, or
+- The workflow is manually run from the **Actions** tab
+
+### 4. Deploying Updates
+
+To deploy changes:
+
+```bash
+git add .
+git commit -m "Update dashboard"
+git push origin main
+```
+
+Then:
+
+1. Go to the **Actions** tab in GitHub.
+2. Wait for the workflow to complete (green checkmark).
+3. The site updates automatically.
+
+It may take **1–3 minutes** for the updated version to appear.
+
+### 5. Live Site
+
+Once deployed, the live site can be accessed at:
+
+ https://wxrren.github.io/Feb-Hackathon/
+
+You can also find this link under:
+
+**Settings → Pages**
+
+---
+
+## Forking the Repository
+
+Forking allows you to create your own copy of the repository without affecting the original.
+
+1. Open the repository:  
+   https://github.com/Wxrren/Feb-Hackathon
+2. Click the **Fork** button in the top-right corner.
+3. Select your GitHub account as the destination.
+
+You now have your own version of the project.
+
+---
+
+## Local Clone
+
+To run the project locally:
+
+### 1. Clone the Repository
+
+1. Open the repository.
+2. Click the **Code** button.
+3. Copy the HTTPS or SSH URL.
+
+Example:
+
+`https://github.com/Wxrren/Feb-Hackathon.git`
+
+### 2. Open Terminal or Git Bash
+
+Navigate to the directory where you want the project:
+
+```bash
+cd path/to/your/folder
+```
+
+### 3. Clone the Repository
+
+```bash
+git clone https://github.com/Wxrren/Feb-Hackathon.git
+```
+
+### 4. Install Dependencies
+
+Navigate into the Vite app folder and install dependencies:
+
+```bash
+cd Feb-Hackathon/hackathon-app
+npm install
+```
+
+### 5. Run the Development Server
+
+```bash
+npm run dev
+```
+
+The app runs locally at:
+
+`http://localhost:5173`
+
+### 6. Build for Production (Optional)
+
+To generate a production build:
+
+```bash
+npm run build
+```
+
+The compiled output is located in:
+
+`hackathon-app/dist`
+
+---
+
+## Important Notes (Vite + GitHub Pages)
+
+- The `base` setting in `vite.config.js` must be:
+
+  ```js
+  base: "/Feb-Hackathon/";
+  ```
+
+- The workflow builds from:
+
+  `hackathon-app/`
+
+- The `dist` folder is deployed automatically by GitHub Actions.
+
+---
+
+## Summary
+
+Deployment is fully automated:
+
+1. Push to `main`
+2. GitHub Actions builds the project
+3. The `dist` folder is published
+4. GitHub Pages updates automatically
+
+No manual uploading is required.
+
+## [Credits](#credits-1)
+
+This Project was created by the Wellbeing Pulse team.
+
+[Chrysanthus](https://github.com/chrysanthusobinna)
+[Robert S. Elliott](https://github.com/RSE1982)
+[Simon](https://github.com/motogoatUK)
+[Warren Smith](https://github.com/Wxrren)

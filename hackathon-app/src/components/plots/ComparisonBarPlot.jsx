@@ -16,9 +16,6 @@ export default function ComparisonBarPlot({
 	metric,
 	getComparison,
 }) {
-	// Hide for national level (nothing to compare against)
-	if (level === 'national') return null;
-
 	const { ukAvg, selected, delta } = getComparison({
 		level,
 		quarter,
@@ -26,14 +23,20 @@ export default function ComparisonBarPlot({
 		metric,
 	});
 
-	// Debug (remove once happy)
-	// console.log('COMPARE', { level, quarter, geography, metric, ukAvg, selected, delta });
-
 	if (ukAvg == null || selected == null) {
 		return (
 			<div className='bg-white/70 rounded-2xl shadow p-4'>
 				<h2 className='font-semibold mb-2'>{title}</h2>
 				<div className='text-sm opacity-70'>No comparison data available.</div>
+			</div>
+		);
+	}
+
+	if (level === 'national') {
+		return (
+			<div className='bg-white/70 rounded-2xl shadow p-4'>
+				<h2 className='font-semibold mb-2'>{title}</h2>
+				<div className='text-sm opacity-70'>Cannot show comparison for national level.</div>
 			</div>
 		);
 	}

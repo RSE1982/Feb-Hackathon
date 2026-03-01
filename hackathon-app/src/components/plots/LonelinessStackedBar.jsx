@@ -97,14 +97,32 @@ export default function LonelinessStackedBar({
 					layout={{
 						barmode: 'group',
 						title: '',
-						xaxis: { title: 'Geography' },
-						yaxis: { title: 'Percentage (%)' },
+						xaxis: {
+							title: 'Geography',
+							automargin: true,
+							tickangle: -45, // helps on mobile
+							tickfont: { size: 10 }, // helps on mobile
+						},
+						yaxis: { title: 'Percentage (%)', automargin: true },
 						autosize: true,
-						margin: { t: 20, r: 20, b: 60, l: 60 },
-						legend: { orientation: 'h', y: -0.2 }
+						margin: { t: 40, r: 16, b: 90, l: 52 }, // extra bottom for rotated labels
+						legend: {
+							orientation: 'h',
+							x: 0,
+							xanchor: 'left',
+							y: 1.15,
+							yanchor: 'top',
+							font: { size: 10 },
+						},
+						dragmode: false,
 					}}
 					style={{ width: '98%', height: '98%' }}
-					config={{ responsive: true }}
+					config={{
+						responsive: true,
+						displayModeBar: false,
+						scrollZoom: false,
+						doubleClick: false,
+					}}
 				/>
 			</div>
 		</div>

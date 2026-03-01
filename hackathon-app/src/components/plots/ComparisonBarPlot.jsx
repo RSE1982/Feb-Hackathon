@@ -76,6 +76,7 @@ export default function ComparisonBarPlot({
 				rangemode: 'tozero',
 			},
 			legend: { orientation: 'h', y: -0.2 },
+			dragmode: false,
 		};
 	}, [metric]);
 

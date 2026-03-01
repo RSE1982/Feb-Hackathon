@@ -5,6 +5,7 @@ import FiltersPanel from '../components/FiltersPanel';
 import KpiRow from '../components/KpiRow';
 import InsightCards from '../components/InsightCards';
 import DashboardHeader from '../components/DashboardHeader';
+import StickyMobileNav from '../components/StickyMobileNav';
 
 import TrendLinePlot from '../components/plots/TrendLinePlot';
 import ComparisonBarPlot from '../components/plots/ComparisonBarPlot';
@@ -110,7 +111,30 @@ export default function Dashboard() {
 					geography={geography}
 				/>
 				{/* Filters and level selection */}
-				<div className='sticky top-0 z-30'>
+				{/* Mobile: hamburger */}
+				<div className='md:hidden sticky top-0 z-50'>
+					<StickyMobileNav title='Filters'>
+						{/* Level selection */}
+						<LevelTabs level={level} onChange={setLevel} />
+						<div className='mt-4 mb-4'></div>
+						{/* Filters */}
+						<FiltersPanel
+							level={level}
+							quarter={quarter}
+							onQuarterChange={setQuarter}
+							metric={metric}
+							onMetricChange={setMetric}
+							geography={geography}
+							onGeographyChange={setGeography}
+							quarters={quarters?.length ? quarters : [1, 2, 3, 4]}
+							geographies={geographies}
+							metrics={metrics}
+						/>
+					</StickyMobileNav>
+				</div>
+
+				{/* Desktop: normal sticky filters (or whatever you already have) */}
+				<div className='hidden md:block sticky top-0 z-40'>
 					{/* Level selection */}
 					<LevelTabs level={level} onChange={setLevel} />
 					<div className='mt-4 mb-4'></div>

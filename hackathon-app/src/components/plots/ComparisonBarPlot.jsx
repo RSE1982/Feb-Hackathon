@@ -113,22 +113,20 @@ export default function ComparisonBarPlot({
 
 	return (
 		<div className='bg-white/70 rounded-2xl shadow p-4'>
-			<div className='flex items-center justify-between mb-2 md:flex-row flex-col gap-2'>
-				<div>
+			<div className='flex items-center justify-between mb-2 md:flex-row flex-col gap-2 md:items-start'>
+				<div className='flex w-full p-0 items-start flex-col gap-1'>
 					<h2 className='font-semibold'>
 						Q{quarter} {metricNiceName(metric)} Comparison
 					</h2>
 					<h3>{geography} vs Great Britain</h3>
 				</div>
 
-				<div className={`text-xs px-2 py-1 rounded-full border ${badgeClass}`}>
-					{badgeText} · {deltaText}
+				<div className={`text-xs text-center px-2 py-1 w-50 rounded-full border ${badgeClass}`}>
+					{badgeText} <br /> {deltaText}
 				</div>
 			</div>
 
-
-
-			<div className="h-80 rounded-xl border overflow-hidden bg-white">
+			<div className='h-80 rounded-xl border overflow-hidden bg-white'>
 				<Plot
 					key={plotKey}
 					data={traces}
@@ -139,12 +137,11 @@ export default function ComparisonBarPlot({
 						displayModeBar: false,
 						responsive: true,
 						scrollZoom: false,
-						doubleClick: false
+						doubleClick: false,
 					}}
 					style={{ width: '98%', height: '98%' }}
 				/>
 			</div>
-
 		</div>
 	);
 }

@@ -1,5 +1,6 @@
 import React, { useMemo } from 'react';
 import Plot from 'react-plotly.js';
+import { capitalizeString } from '../../utils/capitalizeString';
 
 import {
 	metricNiceName,
@@ -9,7 +10,6 @@ import {
 } from '../../utils/metricHelpers';
 
 export default function ComparisonBarPlot({
-	title = 'Comparison',
 	level,
 	quarter,
 	geography,
@@ -47,23 +47,16 @@ export default function ComparisonBarPlot({
 		return [
 			{
 				type: 'bar',
-				name: geography,
-				x: [geography],
-				y: [selected],
-				hovertemplate: `${geography}<br>${metricLabel}: ${formatMetricValue(
-					metric,
-					selected,
-				)}<extra></extra>`,
-			},
-			{
-				type: 'bar',
-				name: 'UK average',
-				x: [geography],
-				y: [ukAvg],
-				hovertemplate: `UK average<br>${metricLabel}: ${formatMetricValue(
-					metric,
-					ukAvg,
-				)}<extra></extra>`,
+				x: [geography, 'UK Average'],
+				y: [selected, ukAvg],
+				marker: {
+					color: [
+						'#f97316', // 🟧 Orange (Geography)
+						'#2563eb', // 🔵 Blue (UK Average)
+					],
+				},
+				hovertemplate:
+					'%{x}<br>' + `${metricLabel}: %{y:.2f}` + '<extra></extra>',
 			},
 		];
 	}, [noData, isNational, geography, selected, ukAvg, metric]);
@@ -72,30 +65,19 @@ export default function ComparisonBarPlot({
 		const metricLabel = metricNiceName(metric);
 
 		return {
-			barmode: 'group',
 			height: 320,
 			margin: { l: 50, r: 10, t: 10, b: 45 },
-			legend: { orientation: 'h', y: -0.2 },
+			xaxis: {
+				type: 'category',
+			},
 			yaxis: {
 				title: metricLabel,
-				tickformat: '.2f', // ✅ keep 2dp
+				tickformat: '.2f',
 				rangemode: 'tozero',
 			},
-			annotations:
-				noData || isNational
-					? []
-					: [
-							{
-								x: geography,
-								y: Math.max(selected, ukAvg),
-								text: deltaText,
-								showarrow: false,
-								yanchor: 'bottom',
-								font: { size: 12 },
-							},
-						],
+			legend: { orientation: 'h', y: -0.2 },
 		};
-	}, [metric, geography, selected, ukAvg, deltaText, noData, isNational]);
+	}, [metric]);
 
 	const badgeClass = useMemo(() => {
 		if (!status) return 'bg-gray-50 text-gray-700 border-gray-200';
@@ -121,7 +103,7 @@ export default function ComparisonBarPlot({
 	if (noData) {
 		return (
 			<div className='bg-white/70 rounded-2xl shadow p-4'>
-				<h2 className='font-semibold mb-2'>{title}</h2>
+				<h2 className='font-semibold mb-2'>{metricNiceName(metric)}: Comparison {capitalizeString(level)} {geography} vs Great Britain</h2>
 				<div className='text-sm opacity-70'>No comparison data available.</div>
 			</div>
 		);
@@ -130,7 +112,10 @@ export default function ComparisonBarPlot({
 	if (isNational) {
 		return (
 			<div className='bg-white/70 rounded-2xl shadow p-4'>
-				<h2 className='font-semibold mb-2'>{title}</h2>
+				<div>
+					<h2 className='font-semibold'>Q{quarter} {metricNiceName(metric)} Comparison</h2>
+					<h3>{geography} vs Great Britain</h3>
+				</div>
 				<div className='text-sm opacity-70'>
 					Cannot show comparison for national level.
 				</div>
@@ -141,26 +126,37 @@ export default function ComparisonBarPlot({
 	return (
 		<div className='bg-white/70 rounded-2xl shadow p-4'>
 			<div className='flex items-center justify-between mb-2'>
-				<h2 className='font-semibold'>{title}</h2>
+				<div>
+					<h2 className='font-semibold'>
+						Q{quarter} {metricNiceName(metric)} Comparison
+					</h2>
+					<h3>{geography} vs Great Britain</h3>
+				</div>
 
 				<div className={`text-xs px-2 py-1 rounded-full border ${badgeClass}`}>
 					{badgeText} · {deltaText}
 				</div>
 			</div>
 
-			<div className='text-xs opacity-60 mb-4'>
-				{metricNiceName(metric)} · Q{quarter} · {geography}
+
+
+			<div className="h-80 rounded-xl border overflow-hidden">
+				<Plot
+					key={plotKey}
+					data={traces}
+					layout={layout}
+					revision={plotKey}
+					useResizeHandler
+					config={{
+						displayModeBar: false,
+						responsive: true,
+						scrollZoom: false,
+						doubleClick: false
+					}}
+					style={{ width: '98%', height: '98%' }}
+				/>
 			</div>
 
-			<Plot
-				key={plotKey}
-				data={traces}
-				layout={layout}
-				revision={plotKey}
-				useResizeHandler
-				config={{ displayModeBar: false, responsive: true }}
-				style={{ width: '100%', height: '320px' }}
-			/>
 		</div>
 	);
 }

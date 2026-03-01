@@ -100,7 +100,7 @@ export default function Dashboard() {
 	// --- Render states ---
 	if (loading) {
 		return (
-			<div className='min-h-screen bg-linear-to-br from-pink-50 to-blue-50'>
+			<div className='min-h-screen bg-linear-to-br from-pink-100 to-blue-300'>
 				<div className='max-w-6xl mx-auto p-6'>Loading data…</div>
 			</div>
 		);
@@ -108,7 +108,7 @@ export default function Dashboard() {
 
 	if (error) {
 		return (
-			<div className='min-h-screen bg-linear-to-br from-pink-50 to-blue-50'>
+			<div className='min-h-screen bg-linear-to-br from-pink-100 to-blue-300'>
 				<div className='max-w-6xl mx-auto p-6 text-red-700'>
 					<div className='bg-white/70 rounded-2xl shadow p-4'>
 						<div className='font-semibold mb-1'>Failed to load data</div>
@@ -124,7 +124,7 @@ export default function Dashboard() {
 	}
 
 	return (
-		<div className='min-h-screen bg-linear-to-br from-pink-50 to-blue-50'>
+		<div className='min-h-screen bg-[url(../public/images/5321162.jpg)] bg-cover bg-fixed bg-center'>
 			<div className='max-w-6xl mx-auto p-6 space-y-6'>
 				{/* Header */}
 				<DashboardHeader
@@ -226,9 +226,9 @@ export default function Dashboard() {
 					allData={data}
 				/>
 
-				<footer className='text-xs text-gray-500 mt-10 border-t pt-4'>
+				<footer className='text-xs text-gray-600 mt-10 border-t rounded-xl p-2 bg-white/70'>
 					<p>
-						Data © Office for National Statistics. Boundary data © Crown
+						Data &copy; Office for National Statistics. Boundary data &copy; Crown
 						copyright. Licensed under Open Government Licence v3.0.
 					</p>
 					<p>Full attribution available in the project repository.</p>

@@ -13,6 +13,7 @@ import LonelinessStackedBar from '../components/plots/LonelinessStackedBar';
 import ChoroplethMap from '../components/plots/ChoroplethMap';
 
 import { useWellbeingData } from '../hooks/useWellbeingData';
+import { metricNiceName } from '../utils/metricHelpers';
 	
 
 
@@ -172,14 +173,13 @@ export default function Dashboard() {
 				{/* Charts */}
 				<div className='grid grid-cols-1 lg:grid-cols-2 gap-6'>
 					<TrendLinePlot
-						title='Trend over time'
+						title={`${metricNiceName(metric)}: Trend over time`}
 						metric={metric}
 						level={level}
 						geography={geography}
 						data={geoTrendData}
 					/>
 					<ComparisonBarPlot
-						title='Comparison (selected quarter)'
 						metric={metric}
 						level={level}
 						quarter={quarter}
@@ -189,7 +189,7 @@ export default function Dashboard() {
 				</div>
 
 				<LonelinessStackedBar
-					title='Loneliness distribution (selected quarter)'
+					title={`Loneliness distribution Q${quarter}`}
 					level={level}
 					quarter={quarter}
 					data={levelQuarterData}

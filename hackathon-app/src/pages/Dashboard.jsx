@@ -202,9 +202,12 @@ export default function Dashboard() {
 					allData={data}
 				/>
 
-				<footer className='text-xs text-gray-600 pt-2'>
-					Next step: replace placeholders with Plotly charts + implement
-					InsightEngine calculations.
+				<footer className='text-xs text-gray-500 mt-10 border-t pt-4'>
+					<p>
+						Data © Office for National Statistics. Boundary data © Crown
+						copyright. Licensed under Open Government Licence v3.0.
+					</p>
+					<p>Full attribution available in the project repository.</p>
 				</footer>
 			</div>
 		</div>

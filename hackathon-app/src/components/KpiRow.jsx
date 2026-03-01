@@ -31,19 +31,30 @@ export default function KpiRow({ level, quarter, geography, row, prev }) {
 		},
 	];
 
-	const getTrend = (value, prev) => {
-		if (value == null || prev == null) return null;
+	const getTrend = (value, prev, higherIsBetter = true) => {
+    if (value == null || prev == null) return null;
 
-		const diff = value - prev;
-		if (diff > 0) return { arrow: "↑", color: "text-green-600", diff };
-		if (diff < 0) return { arrow: "↓", color: "text-red-600", diff };
-		return { arrow: "→", color: "text-gray-400", diff: 0 };
-  	};
+    const diff = value - prev;
+
+    if (diff === 0) {
+      return { arrow: "→", color: "text-gray-400", diff: 0 };
+    }
+
+    const isHigher = diff > 0;
+    const isPositive =
+		(isHigher && higherIsBetter) || (!isHigher && !higherIsBetter);
+
+    return {
+      arrow: isHigher ? "↑" : "↓",
+      color: isPositive ? "text-green-600" : "text-red-600",
+      diff
+    };
+  };
 
 	return (
 		<div className='grid grid-cols-2 md:grid-cols-4 gap-4'>
 		{kpis.map((kpi) => {
-			const trend = getTrend(kpi.data_value, kpi.prev_value);
+			const trend = getTrend(kpi.data_value, kpi.prev_value, kpi.higherIsBetter);
 
 			return (
 				<div key={kpi.title} className='bg-white/70 rounded-2xl shadow p-4 hover:shadow-lg transition-shadow'>
@@ -55,6 +66,9 @@ export default function KpiRow({ level, quarter, geography, row, prev }) {
 					{trend?.arrow && (
 					<span className={`ml-2 ${trend.color}`}>
 						{trend.arrow}
+						<span className="text-sm">
+						{typeof trend.diff === "number"	? trend.diff.toFixed(2) : trend.diff}
+						</span>
 					</span>
 					)}
 				</div>

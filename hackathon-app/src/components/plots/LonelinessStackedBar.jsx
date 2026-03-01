@@ -1,12 +1,14 @@
 import React, { useMemo } from 'react';
 import Plot from 'react-plotly.js';
-
+import {capitalizeString} from '../../utils/capitalizeString';
 export default function LonelinessStackedBar({
-	title = 'Loneliness distribution',
+	title,
 	level,
 	quarter,
 	data,
 }) {
+	// Set title
+	title = 'Loneliness Distribution ('+capitalizeString(level)+', '+quarter+')';
 	const lonelinessData = useMemo(() => {
 		if (!data || !data.length) return null;
 
@@ -89,7 +91,7 @@ export default function LonelinessStackedBar({
 	return (
 		<div className='bg-white/70 rounded-2xl shadow p-4'>
 			<h2 className='font-semibold mb-2'>{title}</h2>
-			<div className='h-90 rounded-xl border'>
+			<div className='h-90 rounded-xl border flex items-center justify-center'>
 				<Plot
 					data={lonelinessData.traces}
 					layout={{
@@ -101,7 +103,7 @@ export default function LonelinessStackedBar({
 						margin: { t: 20, r: 20, b: 60, l: 60 },
 						legend: { orientation: 'h', y: -0.2 }
 					}}
-					style={{ width: '100%', height: '100%' }}
+					style={{ width: '98%', height: '98%' }}
 					config={{ responsive: true }}
 				/>
 			</div>

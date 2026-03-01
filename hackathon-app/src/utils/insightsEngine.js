@@ -31,7 +31,9 @@ const HIGHER_IS_BETTER = {
     subtitle: 'Q2 • region', // additional context
     tone: 'good', // one of 'good' | 'bad' | 'neutral' | 'info' (for coloring)
 }
-*/  
+*/
+
+import { capitalizeString } from "./capitalizeString";
 function isPercentMetric(metric) {
     // crude heuristic: if the metric name ends with '_pct' or contains certain keywords, treat it as a percentage
     return (
@@ -262,16 +264,16 @@ export function getInsights({ allData, level, quarter, metric }) {
     return [
         {
             id: 'top',
-            title: higherIsBetter ? 'Top area' : 'Best (lowest)',
+            title: higherIsBetter ? 'Best (Highest)' : 'Best (Lowest)',
             value: `${best.name} (${formatValue(metric, best.value)})`,
-            subtitle: `Q${quarter} • ${level}`,
+            subtitle: `Q${quarter} • ${capitalizeString(level)}`,
             tone: 'good',
         },
         {
             id: 'bottom',
-            title: higherIsBetter ? 'Bottom area' : 'Worst (highest)',
+            title: higherIsBetter ? 'Worst (Lowest)' : 'Worst (Highest)',
             value: `${worst.name} (${formatValue(metric, worst.value)})`,
-            subtitle: '',
+            subtitle: `Q${quarter} • ${capitalizeString(level)}`,
             tone: 'bad',
         },
         changeCard,

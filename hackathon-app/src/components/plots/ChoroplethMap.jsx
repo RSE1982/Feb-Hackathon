@@ -45,6 +45,26 @@ export default function ChoroplethMap({ rows = [], level, quarter, metric }) {
 		[level],
 	);
 
+	const metricRange = useMemo(() => {
+		if (!rows || rows.length === 0) return { min: 0, max: 1 };
+
+		const values = rows
+			.map((r) => {
+				if ('metric' in r && 'value' in r) {
+					return r.metric === metric ? Number(r.value) : null;
+				}
+				return Number(r[metric]);
+			})
+			.filter((v) => Number.isFinite(v));
+
+		if (values.length === 0) return { min: 0, max: 1 };
+
+		return {
+			min: Math.min(...values),
+			max: Math.max(...values),
+		};
+	}, [rows, metric]);
+
 	const feature = useMemo(() => {
 		if (level === 'country')
 			return { idKey: 'properties.CTRY24NM', nameProp: 'CTRY24NM' };
@@ -143,6 +163,9 @@ export default function ChoroplethMap({ rows = [], level, quarter, metric }) {
 							featureidkey: feature.idKey,
 							locations: geoLocations,
 							z: zValues,
+							zmin: metricRange.min,
+							zmax: metricRange.max,
+							zauto: false,
 							hovertemplate:
 								'%{location}<br>' +
 								metricNiceName(metric) +

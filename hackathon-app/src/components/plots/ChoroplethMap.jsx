@@ -142,11 +142,8 @@ export default function ChoroplethMap({ rows = [], level, quarter, metric }) {
 				h-130 sm:h-150 md:h-180
 			`}
 		>
-			<h2 className='font-semibold mb-2'>Map</h2>
-
-			<div className='text-xs opacity-60 mb-3'>
-				{capitalizeString(level)} • Q{quarter} • {metricNiceName(metric)}
-			</div>
+			<h2 className='font-semibold mb-2'>Map: {metricNiceName(metric)}</h2>
+			<h3>{capitalizeString(level)} • Q{quarter}</h3>
 
 			<div
 				ref={plotWrapRef}

@@ -1,5 +1,6 @@
 import React from 'react';
 import { capitalizeString } from '../utils/capitalizeString';
+import { metricNiceName } from '../utils/metricHelpers';
 
 export default function FiltersPanel({
 	level,
@@ -52,7 +53,7 @@ export default function FiltersPanel({
 				>
 					{metrics.map((m) => (
 						<option key={m} value={m}>
-							{m}
+							{metricNiceName(m)}
 						</option>
 					))}
 				</select>

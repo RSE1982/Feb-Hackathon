@@ -13,11 +13,19 @@ import LonelinessStackedBar from '../components/plots/LonelinessStackedBar';
 import ChoroplethMap from '../components/plots/ChoroplethMap';
 
 import { useWellbeingData } from '../hooks/useWellbeingData';
+	
 
 
 export default function Dashboard() {
-	const { data, loading, error, quarters, metrics, getGeographies } =
-		useWellbeingData();
+	const {
+		data,
+		loading,
+		error,
+		quarters,
+		metrics,
+		getGeographies,
+		getComparison,	
+	} = useWellbeingData();
 
 	// --- UI state (single source of truth) ---
 	const [level, setLevel] = useState('national'); // national | country | region
@@ -175,7 +183,8 @@ export default function Dashboard() {
 						metric={metric}
 						level={level}
 						quarter={quarter}
-						data={levelQuarterData}
+						geography={geography}
+						getComparison={getComparison}
 					/>
 				</div>
 

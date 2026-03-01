@@ -47,6 +47,41 @@ export function useWellbeingData() {
         };
     }, []);
 
+    const toNum = (v) => {
+        const n = Number(v);
+        return Number.isFinite(n) ? n : null;
+    };
+
+    const getComparison = ({ level, quarter, geography, metric }) => {
+        const ukRow = data.find(
+            (d) =>
+                d.geography_level === "national" &&
+                Number(d.quarter) === Number(quarter)
+        );
+
+        const ukAvg = ukRow ? toNum(ukRow[metric]) : null;
+
+        if (level === "national" || !geography) {
+            return { ukAvg, selected: null, delta: null };
+        }
+
+        const selectedRow = data.find(
+            (d) =>
+                d.geography_level === level &&
+                Number(d.quarter) === Number(quarter) &&
+                d.geography === geography
+        );
+
+        const selected = selectedRow ? toNum(selectedRow[metric]) : null;
+
+        return {
+            ukAvg,
+            selected,
+            delta:
+                ukAvg != null && selected != null ? selected - ukAvg : null,
+        };
+    };
+
     // ----------------------------
     // Derived values
     // ----------------------------
@@ -93,5 +128,6 @@ export function useWellbeingData() {
         quarters,
         metrics,
         getGeographies,
+        getComparison,
     };
 }

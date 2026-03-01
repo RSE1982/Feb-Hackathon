@@ -2,7 +2,7 @@ import React from 'react';
 
 export default function LevelTabs({ level, onChange }) {
 	return (
-		<div className='bg-white/70 rounded-2xl shadow p-4 flex gap-2'>
+		<div className='bg-white rounded-2xl shadow p-4 flex gap-2'>
 			{['national', 'country', 'region'].map((lv) => (
 				<button
 					key={lv}

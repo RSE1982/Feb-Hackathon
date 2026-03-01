@@ -1,12 +1,10 @@
 import React, { useMemo } from 'react';
 import Plot from 'react-plotly.js';
 import { useGeoJson } from '../../hooks/useGeoJson';
-<<<<<<< Updated upstream
 import { capitalizeString } from '../../utils/capitalizeString';
-=======
 import { metricNiceName } from '../../utils/metricHelpers';
 import { useContainerWidth } from '../../hooks/useContainerWidth';
->>>>>>> Stashed changes
+
 
 const quarterToNumber = (q) => {
 	if (typeof q === 'number') return q;

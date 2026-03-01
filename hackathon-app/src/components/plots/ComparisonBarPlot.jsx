@@ -101,19 +101,11 @@ export default function ComparisonBarPlot({
 	// ✅ Remount on slicer change (most reliable)
 	const plotKey = `${level}-${quarter}-${metric}-${geography}`;
 
-	if (noData) {
-		return (
-			<div className='bg-white/70 rounded-2xl shadow p-4'>
-				<div className='text-sm opacity-70'>No comparison data available.</div>
-			</div>
-		);
-	}
-
-	if (isNational) {
+	if (isNational || noData) {
 		return (
 			<div className='bg-white/70 rounded-2xl shadow p-4'>
 				<div className='text-sm opacity-70'>
-					Cannot show comparison for national level.
+					Comparison is available for Country and Region
 				</div>
 			</div>
 		);

@@ -1,4 +1,5 @@
 import React from 'react';
+import { capitalizeString } from '../utils/capitalizeString';
 import { metricNiceName } from '../utils/metricHelpers';
 
 export default function FiltersPanel({
@@ -25,7 +26,7 @@ export default function FiltersPanel({
 		<div className='bg-white/70 rounded-2xl shadow p-4 grid grid-cols-1 md:grid-cols-4 gap-4'>
 			<div>
 				<label className='block text-xs font-semibold mb-1'>Level</label>
-				<div className='text-sm'>{level}</div>
+				<div className='text-sm'>{capitalizeString(level)}</div>
 			</div>
 
 			<div>

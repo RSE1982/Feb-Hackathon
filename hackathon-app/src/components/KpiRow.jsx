@@ -1,15 +1,8 @@
 import React from 'react';
+import {capitalizeString} from '../utils/capitalizeString';
 /*
  * KpiRow - Key Performance Indicators
  */
-
-// Utility function to capitalize the first letter of a string
-function capitalizeString(str) {
-  if (typeof str !== "string" || str.length === 0) {
-    return ""; // Handle invalid or empty input
-  }
-  return str.charAt(0).toUpperCase() + str.slice(1);
-}
 
 export default function KpiRow({ level, quarter, geography, row }) {
 	

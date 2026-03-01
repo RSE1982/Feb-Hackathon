@@ -1,6 +1,7 @@
 import React, { useMemo } from 'react';
 import Plot from 'react-plotly.js';
 import { useGeoJson } from '../../hooks/useGeoJson';
+import { capitalizeString } from '../../utils/capitalizeString';
 
 const quarterToNumber = (q) => {
 	if (typeof q === 'number') return q;
@@ -109,7 +110,7 @@ export default function ChoroplethMap({ rows = [], level, quarter, metric }) {
 		<div className='bg-white/70 rounded-2xl shadow p-4'>
 			<h2 className='font-semibold mb-2'>Map</h2>
 			<div className='text-xs opacity-60 mb-4'>
-				{level} • Q{quarter} • {metric}
+				{capitalizeString(level)} • Q{quarter} • {metric}
 			</div>
 			<div className='rounded-xl border bg-white p-2'>
 				<Plot

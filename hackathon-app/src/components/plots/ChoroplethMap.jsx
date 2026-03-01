@@ -139,7 +139,7 @@ export default function ChoroplethMap({ rows = [], level, quarter, metric }) {
 			className={`
 				bg-white/70 shadow flex flex-col
 				${isMobile ? '-mx-4 rounded-none p-2' : 'rounded-2xl p-4'}
-				h-[520px] sm:h-[600px] md:h-[720px]
+				h-130 sm:h-150 md:h-180
 			`}
 		>
 			<h2 className='font-semibold mb-2'>Map</h2>

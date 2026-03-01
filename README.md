@@ -113,6 +113,136 @@ To determine which approach to take with dashboard features, we identified the g
 
 ## [Design](#design-1)
 
+### Colour Scheme
+
+The Wellbeing & Loneliness Dashboard was designed to balance **emotional storytelling** with **analytical clarity**.
+
+Primary colours and their purpose:
+
+- **Accent Colour (Pink)**  
+  Used for active tabs (for example, **National**).  
+  Communicates warmth and emotional awareness, while clearly showing selected states.
+
+- **Soft Whites & Light Greys**  
+  Used for cards, panels, and layout structure.  
+  Keeps the interface clean and modern, while allowing charts to stand out.
+
+- **Blue Line Charts**  
+  Used for trend visualisation.  
+  Reinforces trust, stability, and readability over time-series data.
+
+- **Multi-colour Categorical Bars (Loneliness chart)**  
+  Used to differentiate loneliness frequency categories clearly.  
+  Supports quick interpretation and visual comparison.
+
+Overall, the palette supports:
+
+- Emotional context (imagery)
+- Analytical clarity (muted panels)
+- Strong interaction feedback (pink highlights)
+
+### Imagery
+
+A full-screen background image of a child jumping with raised arms was intentionally selected to represent:
+
+- Energy
+- Emotional expression
+- Wellbeing in its human form
+
+This prevents the dashboard from feeling cold or purely statistical and reinforces that the data reflects real people and lived experiences.
+
+To maintain readability over the image, dashboard sections are placed inside semi-transparent white cards. This creates:
+
+- Strong contrast for data visualisation
+- Clear separation between sections
+- A softer, more approachable interface
+
+### End Product Design Changes
+
+The final design follows a layered dashboard hierarchy for intuitive exploration:
+
+1. **Context First**  
+   Dashboard title and selected-filter summary immediately explain what the user is viewing.
+
+2. **Control Layer**  
+   Level tabs (National / Country / Region) and filter panel (Quarter, Metric, Geography) define a clear interaction zone.
+
+3. **Summary Layer**  
+   KPI cards present key values up front for rapid understanding.
+
+4. **Visual Insight Layer**  
+   Visualisations progress logically from:
+   - Time-based trends
+   - Cross-geography comparison
+   - Category distribution
+   - Spatial pattern analysis
+
+This structure supports deeper insight without overwhelming the user.
+
+### Data Visualisation Design
+
+#### Trend Line Chart
+
+- Smooth line with markers
+- Minimal grid styling
+- Clear quarter labels
+- Styling prioritises readability over decoration
+- Designed to highlight movement and fluctuation over time
+
+#### Loneliness Distribution Bar Chart
+
+- Distinct colour coding by frequency level
+- Clear legend placement
+- Simple vertical bars for quick interpretation
+- Built for categorical clarity and comparison
+
+#### Choropleth Map
+
+- Gradient from lighter to darker red tones
+- Subtle borders between regions
+- Clear legend for interpretation
+
+This turns numerical scores into geographic storytelling and helps users identify:
+
+- Higher-performing areas
+- Regional variation
+- UK-wide spatial patterns
+
+### Typography
+
+Typography is designed for clarity and hierarchy using a clean, modern sans-serif font that:
+
+- Renders consistently across devices
+- Loads quickly
+- Maintains readability at all screen sizes
+
+Hierarchy includes:
+
+- Bold dashboard title
+- Medium-weight section headings
+- Large KPI values
+- Muted contextual labels
+
+This improves scanability and reduces cognitive load.
+
+### Design Philosophy
+
+Core design principles:
+
+1. **Human-Centred**  
+   The imagery keeps focus on lived human experience behind the data.
+
+2. **Clean & Structured**  
+   Card-based layout reduces clutter and supports focused attention.
+
+3. **Insight-Driven**  
+   Visualisations are arranged in a logical sequence to guide interpretation.
+
+4. **Interactive Without Overwhelming**  
+   Minimal stored state, clear filters, and immediate visual feedback keep interaction smooth and intuitive.
+
+---
+
 ---
 
 ## [Features](#features-1)

@@ -77,6 +77,20 @@ export default function Dashboard() {
 		);
 	}, [data, level, quarter, geography]);
 
+	const geoQuarterRowPrev = useMemo(() => {
+		const prev_quarter = quarter>0 ?quarter-1:null;
+		if (prev_quarter) {
+			return data.find(
+				(d) =>
+					d.geography_level === level &&
+					d.quarter === prev_quarter &&
+					d.geography === geography,
+			);
+		} else {
+			return null;
+		}
+	}, [data, level, quarter, geography]);
+
 	const geoTrendData = useMemo(() => {
 		return data
 			.filter((d) => d.geography_level === level && d.geography === geography)
@@ -168,6 +182,7 @@ export default function Dashboard() {
 					quarter={quarter}
 					geography={geography}
 					row={geoQuarterRow}
+					prev={geoQuarterRowPrev}
 				/>
 
 				{/* Charts */}

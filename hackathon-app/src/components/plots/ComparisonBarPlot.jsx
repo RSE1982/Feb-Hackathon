@@ -105,7 +105,7 @@ export default function ComparisonBarPlot({
 		return (
 			<div className='bg-white/70 rounded-2xl shadow p-4'>
 				<div className='text-sm opacity-70'>
-					Comparison is available for Country and Region
+					Comparison is available for <strong>Country</strong> and <strong>Region</strong> levels only.
 				</div>
 			</div>
 		);

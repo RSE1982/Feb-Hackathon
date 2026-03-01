@@ -117,8 +117,8 @@ export default function ChoroplethMap({ rows = [], level, quarter, metric }) {
 
 	if (!isMappableLevel) {
 		return (
-			<div className='rounded-xl border bg-white p-4 text-sm text-gray-700'>
-				Map is available for <b>Country</b> and <b>Region</b>.
+			<div className='rounded-xl bg-white/70 p-4 text-sm text-gray-700'>
+				Map is available for <b>Country</b> and <b>Region</b> levels only.
 			</div>
 		);
 	}

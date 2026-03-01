@@ -91,7 +91,7 @@ export default function LonelinessStackedBar({
 	return (
 		<div className='bg-white/70 rounded-2xl shadow p-4'>
 			<h2 className='font-semibold mb-2'>{title}</h2>
-			<div className='h-90 rounded-xl border flex items-center justify-center'>
+			<div className='h-90 rounded-xl border flex items-center justify-center bg-white'>
 				<Plot
 					data={lonelinessData.traces}
 					layout={{

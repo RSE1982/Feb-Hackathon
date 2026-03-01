@@ -136,7 +136,7 @@ export default function ComparisonBarPlot({
 
 
 
-			<div className="h-80 rounded-xl border overflow-hidden">
+			<div className="h-80 rounded-xl border overflow-hidden bg-white">
 				<Plot
 					key={plotKey}
 					data={traces}

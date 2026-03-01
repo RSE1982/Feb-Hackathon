@@ -103,7 +103,6 @@ export default function ComparisonBarPlot({
 	if (noData) {
 		return (
 			<div className='bg-white/70 rounded-2xl shadow p-4'>
-				<h2 className='font-semibold mb-2'>{metricNiceName(metric)}: Comparison {capitalizeString(level)} {geography} vs Great Britain</h2>
 				<div className='text-sm opacity-70'>No comparison data available.</div>
 			</div>
 		);
@@ -112,10 +111,6 @@ export default function ComparisonBarPlot({
 	if (isNational) {
 		return (
 			<div className='bg-white/70 rounded-2xl shadow p-4'>
-				<div>
-					<h2 className='font-semibold'>Q{quarter} {metricNiceName(metric)} Comparison</h2>
-					<h3>{geography} vs Great Britain</h3>
-				</div>
 				<div className='text-sm opacity-70'>
 					Cannot show comparison for national level.
 				</div>
@@ -125,7 +120,7 @@ export default function ComparisonBarPlot({
 
 	return (
 		<div className='bg-white/70 rounded-2xl shadow p-4'>
-			<div className='flex items-center justify-between mb-2'>
+			<div className='flex items-center justify-between mb-2 md:flex-row flex-col gap-2'>
 				<div>
 					<h2 className='font-semibold'>
 						Q{quarter} {metricNiceName(metric)} Comparison

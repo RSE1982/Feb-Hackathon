@@ -1,5 +1,3 @@
-// src/utils/metricHelpers.js
-
 export const METRIC_META = {
     wellbeing_index: {
         label: 'Wellbeing',

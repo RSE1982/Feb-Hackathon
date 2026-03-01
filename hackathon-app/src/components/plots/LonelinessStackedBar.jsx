@@ -105,14 +105,15 @@ export default function LonelinessStackedBar({
 						},
 						yaxis: { title: 'Percentage (%)', automargin: true },
 						autosize: true,
-						margin: { t: 40, r: 16, b: 90, l: 52 }, // extra bottom for rotated labels
+						margin: { t: 85, r: 16, b: 85, l: 52 }, // more top space for legend
 						legend: {
 							orientation: 'h',
 							x: 0,
 							xanchor: 'left',
-							y: 1.15,
+							y: 1.4, // lift slightly
 							yanchor: 'top',
-							font: { size: 10 },
+							font: { size: 9 },
+							tracegroupgap: 6, // a bit more breathing room if it wraps
 						},
 						dragmode: false,
 					}}

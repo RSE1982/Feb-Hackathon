@@ -8,7 +8,7 @@ export default function LonelinessStackedBar({
 	data,
 }) {
 	// Set title
-	title = 'Loneliness Distribution ('+capitalizeString(level)+', '+quarter+')';
+	title = 'Loneliness Distribution ('+capitalizeString(level)+', Q'+quarter+')';
 	const lonelinessData = useMemo(() => {
 		if (!data || !data.length) return null;
 

@@ -20,13 +20,11 @@ This app has been created as a project during [Code Institute](https://codeinsti
 
 ### [Design](#design-1)
 
-   * #### [Colour Scheme]()
+   * #### Colour Scheme
 
-   * #### [Typography]()
+   * #### Typography
 
-   * #### [Imagery]()
-
-   * #### [End Product Design Changes]()
+   * #### Imagery
 
 ###  [Features](#features-1)
 

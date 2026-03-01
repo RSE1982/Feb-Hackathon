@@ -1,6 +1,7 @@
 import React, { useMemo } from 'react';
 import { getInsights } from '../utils/insightsEngine';
 import { capitalizeString } from '../utils/capitalizeString';
+import { metricNiceName } from '../utils/metricHelpers';
 
 export default function InsightCards({ level, quarter, metric, allData }) {
 	const insights = useMemo(() => {
@@ -12,7 +13,7 @@ export default function InsightCards({ level, quarter, metric, allData }) {
 			<div className='flex items-baseline justify-between mb-3'>
 				<h2 className='font-semibold'>Insights</h2>
 				<div className='text-xs opacity-60'>
-					{capitalizeString(level)} • Q{quarter} • {metric}
+					{capitalizeString(level)} • Q{quarter} • {metricNiceName(metric)}
 				</div>
 			</div>
 

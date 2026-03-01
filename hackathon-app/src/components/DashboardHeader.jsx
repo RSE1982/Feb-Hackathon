@@ -1,5 +1,6 @@
 import React from 'react';
-import {capitalizeString} from '../utils/capitalizeString';
+import { capitalizeString } from '../utils/capitalizeString';
+import { metricNiceName } from '../utils/metricHelpers';
 
 export default function DashboardHeader({ level, quarter, metric, geography }) {
 	return (
@@ -17,7 +18,7 @@ export default function DashboardHeader({ level, quarter, metric, geography }) {
 			<div className='text-xs text-gray-600'>
 				Selected: <span className='font-semibold'>{capitalizeString(level)}</span> • Q
 				<span className='font-semibold'>{quarter}</span> •{' '}
-				<span className='font-semibold'>{metric}</span> •{' '}
+				<span className='font-semibold'>{metricNiceName(metric)}</span> •{' '}
 				<span className='font-semibold'>{geography || '—'}</span>
 			</div>
 		</header>

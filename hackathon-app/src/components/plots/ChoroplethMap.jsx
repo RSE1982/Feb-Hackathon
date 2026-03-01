@@ -5,7 +5,6 @@ import { capitalizeString } from '../../utils/capitalizeString';
 import { metricNiceName } from '../../utils/metricHelpers';
 import { useContainerWidth } from '../../hooks/useContainerWidth';
 
-
 const quarterToNumber = (q) => {
 	if (typeof q === 'number') return q;
 	const m = String(q).match(/Q(\d)/i);
@@ -21,14 +20,24 @@ const normaliseRegionName = (name) => {
 export default function ChoroplethMap({ rows = [], level, quarter, metric }) {
 	const { geojson, error, loading } = useGeoJson(level);
 	const { ref: plotWrapRef, width: plotWrapWidth } = useContainerWidth();
-	const isMobile = plotWrapWidth > 0 && plotWrapWidth < 768;
 
-	const bottomMargin = isMobile ? 55 : 75;
-	const colorbarY = isMobile ? -0.06 : -0.08; // less negative on mobile
-	const colorbarLen = isMobile ? 0.85 : 0.6; // wider on mobile
-	const colorbarThickness = isMobile ? 12 : 15;
+	// ✅ Use a realistic breakpoint
+	const isMobile = plotWrapWidth > 0 && plotWrapWidth < 640;
 
-	// ✅ All memos ALWAYS called (order never changes)
+	// Mobile-first spacing
+	const bottomMargin = isMobile ? 52 : 85;
+	const colorbarY = isMobile ? -0.12 : -0.14; 
+	const colorbarLen = isMobile ? 0.98 : 0.95;
+	const colorbarThickness = isMobile ? 10 : 15;
+
+	// Plot margins: truly edge-to-edge on mobile
+	const margin = isMobile
+		? { l: 0, r: 0, t: 0, b: bottomMargin }
+		: { l: 10, r: 10, t: 10, b: bottomMargin };
+
+	// Slight zoom-in on mobile to reduce “dead space”
+	const projectionScale = isMobile ? 1.12 : 1;
+
 	const qNum = useMemo(() => quarterToNumber(quarter), [quarter]);
 
 	const isMappableLevel = useMemo(
@@ -61,7 +70,6 @@ export default function ChoroplethMap({ rows = [], level, quarter, metric }) {
 			if (!name) continue;
 			if (level === 'region') name = normaliseRegionName(name);
 
-			// support wide or long rows
 			let v;
 			if ('metric' in r && 'value' in r) {
 				if (r.metric !== metric) continue;
@@ -69,6 +77,7 @@ export default function ChoroplethMap({ rows = [], level, quarter, metric }) {
 			} else {
 				v = Number(r[metric]);
 			}
+
 			if (!Number.isFinite(v)) continue;
 			map.set(name, v);
 		}
@@ -83,14 +92,9 @@ export default function ChoroplethMap({ rows = [], level, quarter, metric }) {
 	}, [geojson, feature.nameProp]);
 
 	const zValues = useMemo(() => {
-		// ensures ALL regions/countries draw
-		return geoLocations.map((name) => {
-			const v = valueByName.get(name);
-			return v ?? null; // or 0 if you want a default colour
-		});
+		return geoLocations.map((name) => valueByName.get(name) ?? null);
 	}, [geoLocations, valueByName]);
 
-	// ✅ Returns happen AFTER all hooks and memos
 	if (!isMappableLevel) {
 		return (
 			<div className='rounded-xl border bg-white p-4 text-sm text-gray-700'>
@@ -99,13 +103,8 @@ export default function ChoroplethMap({ rows = [], level, quarter, metric }) {
 		);
 	}
 
-	if (error) {
-		return <div className='p-4 text-red-600'>GeoJSON error: {error}</div>;
-	}
-
-	if (loading || !geojson) {
-		return <div className='p-4 text-gray-600'>Loading map…</div>;
-	}
+	if (error) return <div className='p-4 text-red-600'>GeoJSON error: {error}</div>;
+	if (loading || !geojson) return <div className='p-4 text-gray-600'>Loading map…</div>;
 
 	if (geoLocations.length === 0) {
 		return (
@@ -116,15 +115,25 @@ export default function ChoroplethMap({ rows = [], level, quarter, metric }) {
 	}
 
 	return (
-		<div className='bg-white/70 rounded-2xl shadow p-4 h-130 md:h-180 flex flex-col'>
+		<div
+			className={`
+				bg-white/70 shadow flex flex-col
+				${isMobile ? '-mx-4 rounded-none p-2' : 'rounded-2xl p-4'}
+				h-[520px] sm:h-[600px] md:h-[720px]
+			`}
+		>
 			<h2 className='font-semibold mb-2'>Map</h2>
-			<div className='text-xs opacity-60 mb-4'>
-				{capitalizeString(level)} • Q{quarter} • {metric}
+
+			<div className='text-xs opacity-60 mb-3'>
+				{capitalizeString(level)} • Q{quarter} • {metricNiceName(metric)}
 			</div>
 
 			<div
 				ref={plotWrapRef}
-				className='rounded-xl border bg-white p-2 flex-1 min-h-0'
+				className={`
+					flex-1 min-h-0 bg-white
+					${isMobile ? 'p-0 border-0 rounded-none' : 'p-2 border rounded-xl'}
+				`}
 			>
 				<Plot
 					data={[
@@ -137,9 +146,9 @@ export default function ChoroplethMap({ rows = [], level, quarter, metric }) {
 							hovertemplate:
 								'%{location}<br>' +
 								metricNiceName(metric) +
-								': %{z:.1f}<extra></extra>',
+								': %{z:.2f}<extra></extra>',
 							colorbar: {
-								title: { text: metricNiceName(metric), side: 'top' },
+								title: { text: metricNiceName(metric), side: 'bottom' },
 								orientation: 'h',
 								x: 0.5,
 								xanchor: 'center',
@@ -147,17 +156,19 @@ export default function ChoroplethMap({ rows = [], level, quarter, metric }) {
 								yanchor: 'bottom',
 								len: colorbarLen,
 								thickness: colorbarThickness,
-								tickformat: '.1f',
+								tickformat: '.2f', // ✅ keep .2f
 							},
 						},
 					]}
 					layout={{
-						title: null, // avoid stealing vertical space
+						title: null,
 						dragmode: false,
-						geo: { fitbounds: 'locations', visible: false },
-
-						// Reserve space for the horizontal colorbar INSIDE the plot
-						margin: { l: 10, r: 10, t: 10, b: bottomMargin },
+						geo: {
+							fitbounds: 'locations',
+							visible: false,
+							projection: { type: 'mercator', scale: projectionScale },
+						},
+						margin,
 						autosize: true,
 					}}
 					config={{
@@ -166,7 +177,7 @@ export default function ChoroplethMap({ rows = [], level, quarter, metric }) {
 						doubleClick: false,
 						responsive: true,
 					}}
-					style={{ width: '100%', height: '100%' }} // ✅ critical
+					style={{ width: '100%', height: '100%' }}
 					useResizeHandler
 				/>
 			</div>

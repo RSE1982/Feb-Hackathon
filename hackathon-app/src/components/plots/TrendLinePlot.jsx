@@ -1,5 +1,6 @@
 import React, { useMemo } from "react";
 import Plot from "react-plotly.js";
+import { metricNiceName } from "../../utils/metricHelpers";
 
 export default function TrendLinePlot({
   title = "Trend over time",
@@ -32,7 +33,7 @@ export default function TrendLinePlot({
   return (
     <div className="bg-white/70 rounded-2xl shadow p-4">
       <h2 className="font-semibold mb-2">{title}</h2>
-      <div className="text-xs opacity-60 mb-4">Metric: {metric}</div>
+      <div className="text-xs opacity-60 mb-4">Metric: {metricNiceName(metric)}</div>
 
       {!hasData ? (
         <div className="h-80 rounded-xl border flex items-center justify-center">
@@ -47,8 +48,14 @@ export default function TrendLinePlot({
               margin: { l: 50, r: 20, t: 10, b: 50 },
               xaxis: { title: "Quarter" },
               yaxis: { title: metric },
+              dragmode: false,
             }}
-            config={{ responsive: true, displayModeBar: false }}
+              config={{
+                responsive: true,
+                displayModeBar: false,
+                scrollZoom: false,
+                doubleClick: false,
+              }}
             style={{ width: "100%", height: "100%" }}
             useResizeHandler
           />

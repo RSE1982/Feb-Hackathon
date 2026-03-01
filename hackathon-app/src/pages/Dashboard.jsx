@@ -124,7 +124,7 @@ export default function Dashboard() {
 	}
 
 	return (
-		<div className='min-h-screen bg-[url(../public/images/5321162.jpg)] bg-cover bg-fixed bg-center'>
+		<div className='min-h-screen bg-[url(../public/images/5321162.jpg)] bg-cover bg-fixed bg-top'>
 			<div className='max-w-6xl mx-auto p-6 space-y-6'>
 				{/* Header */}
 				<DashboardHeader

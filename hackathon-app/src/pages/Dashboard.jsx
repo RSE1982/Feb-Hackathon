@@ -120,7 +120,7 @@ export default function Dashboard() {
 				/>
 				{/* Filters and level selection */}
 				{/* Mobile: hamburger */}
-				<div className='md:hidden sticky top-0 z-50 bg-white'>
+				<div className='md:hidden sticky top-0 z-50'>
 					<StickyMobileNav title='Filters'>
 						{/* Level selection */}
 						<LevelTabs level={level} onChange={setLevel} />
@@ -142,7 +142,7 @@ export default function Dashboard() {
 				</div>
 
 				{/* Desktop: normal sticky filters (or whatever you already have) */}
-				<div className='hidden md:block sticky top-0 z-40 bg-white'>
+				<div className='hidden md:block sticky top-0 z-40'>
 					{/* Level selection */}
 					<LevelTabs level={level} onChange={setLevel} />
 					<div className='mt-4 mb-4'></div>

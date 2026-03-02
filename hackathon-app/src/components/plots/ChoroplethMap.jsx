@@ -26,7 +26,7 @@ export default function ChoroplethMap({ rows = [], level, quarter, metric }) {
 
 	// Mobile-first spacing
 	const bottomMargin = isMobile ? 52 : 85;
-	const colorbarY = isMobile ? -0.12 : -0.14; 
+	const colorbarY = isMobile ? -0.12 : -0.14;
 	const colorbarLen = isMobile ? 0.98 : 0.95;
 	const colorbarThickness = isMobile ? 10 : 15;
 
@@ -59,10 +59,7 @@ export default function ChoroplethMap({ rows = [], level, quarter, metric }) {
 
 		if (values.length === 0) return { min: 0, max: 1 };
 
-		return {
-			min: Math.min(...values),
-			max: Math.max(...values),
-		};
+		return { min: Math.min(...values), max: Math.max(...values) };
 	}, [rows, metric]);
 
 	const feature = useMemo(() => {
@@ -104,17 +101,21 @@ export default function ChoroplethMap({ rows = [], level, quarter, metric }) {
 		return map;
 	}, [slicedRows, metric, level]);
 
+	// ✅ Only include geo locations that actually have data values
 	const geoLocations = useMemo(() => {
 		if (!geojson?.features || !feature.nameProp) return [];
 		return geojson.features
 			.map((f) => f?.properties?.[feature.nameProp])
-			.filter(Boolean);
-	}, [geojson, feature.nameProp]);
+			.filter((name) => name && valueByName.has(name));
+	}, [geojson, feature.nameProp, valueByName]);
 
 	const zValues = useMemo(() => {
-		return geoLocations.map((name) => valueByName.get(name) ?? null);
+		return geoLocations.map((name) => valueByName.get(name));
 	}, [geoLocations, valueByName]);
 
+	const hasAnyValue = zValues.some((v) => v != null && Number.isFinite(v));
+
+	// --- UI guards ---
 	if (!isMappableLevel) {
 		return (
 			<div className='rounded-xl bg-white/70 p-4 text-sm text-gray-700'>
@@ -123,16 +124,28 @@ export default function ChoroplethMap({ rows = [], level, quarter, metric }) {
 		);
 	}
 
-	if (error) return <div className='p-4 text-red-600'>GeoJSON error: {error}</div>;
-	if (loading || !geojson) return <div className='p-4 text-gray-600'>Loading map…</div>;
+	if (error)
+		return <div className='p-4 text-red-600'>GeoJSON error: {error}</div>;
+	if (loading || !geojson?.features?.length)
+		return <div className='p-4 text-gray-600'>Loading map…</div>;
 
-	if (geoLocations.length === 0) {
+	// ✅ CRITICAL: Plotly geo can throw if it mounts while container width is 0
+	// (this often happens once right after switching tabs/level)
+	if (plotWrapWidth <= 0) {
+		return <div className='p-4 text-gray-600'>Preparing map…</div>;
+	}
+
+	if (!geoLocations.length || !hasAnyValue) {
 		return (
-			<div className='p-4 text-sm text-gray-700'>
-				GeoJSON loaded but has no features for level: <b>{level}</b>
+			<div className='rounded-xl bg-white/70 p-4 text-sm text-gray-700'>
+				No mappable data for <b>{capitalizeString(level)}</b> • Q
+				<b>{quarter}</b> • <b>{metricNiceName(metric)}</b>.
 			</div>
 		);
 	}
+
+	// ✅ Remount Plotly when level OR container width changes (most reliable for geo)
+	const plotKey = `choropleth-${level}-${plotWrapWidth}`;
 
 	return (
 		<div
@@ -143,7 +156,9 @@ export default function ChoroplethMap({ rows = [], level, quarter, metric }) {
 			`}
 		>
 			<h2 className='font-semibold mb-2'>Map: {metricNiceName(metric)}</h2>
-			<h3>{capitalizeString(level)} • Q{quarter}</h3>
+			<h3>
+				{capitalizeString(level)} • Q{quarter}
+			</h3>
 
 			<div
 				ref={plotWrapRef}
@@ -153,6 +168,7 @@ export default function ChoroplethMap({ rows = [], level, quarter, metric }) {
 				`}
 			>
 				<Plot
+					key={plotKey}
 					data={[
 						{
 							type: 'choropleth',
@@ -176,7 +192,7 @@ export default function ChoroplethMap({ rows = [], level, quarter, metric }) {
 								yanchor: 'bottom',
 								len: colorbarLen,
 								thickness: colorbarThickness,
-								tickformat: '.2f', // ✅ keep .2f
+								tickformat: '.2f',
 							},
 						},
 					]}
@@ -184,8 +200,14 @@ export default function ChoroplethMap({ rows = [], level, quarter, metric }) {
 						title: null,
 						dragmode: false,
 						geo: {
-							fitbounds: 'locations',
-							visible: false,
+							// ✅ only fitbounds when safe
+							fitbounds: hasAnyValue ? 'locations' : false,
+
+							// ✅ avoid geo.visible:false
+							showframe: false,
+							showcoastlines: false,
+							showland: false,
+
 							projection: { type: 'mercator', scale: projectionScale },
 						},
 						margin,

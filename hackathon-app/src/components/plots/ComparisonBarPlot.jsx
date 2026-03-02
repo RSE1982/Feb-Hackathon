@@ -1,12 +1,10 @@
 import React, { useMemo } from 'react';
 import Plot from 'react-plotly.js';
-import { capitalizeString } from '../../utils/capitalizeString';
 
 import {
 	metricNiceName,
 	formatDeltaLabel,
 	deltaStatus,
-	formatMetricValue,
 } from '../../utils/metricHelpers';
 
 export default function ComparisonBarPlot({

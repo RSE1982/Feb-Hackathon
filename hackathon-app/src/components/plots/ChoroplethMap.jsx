@@ -59,7 +59,10 @@ export default function ChoroplethMap({ rows = [], level, quarter, metric }) {
 
 		if (values.length === 0) return { min: 0, max: 1 };
 
-		return { min: Math.min(...values), max: Math.max(...values) };
+		return {
+			min: Math.min(...values),
+			max: Math.max(...values),
+		};
 	}, [rows, metric]);
 
 	const feature = useMemo(() => {
@@ -101,21 +104,17 @@ export default function ChoroplethMap({ rows = [], level, quarter, metric }) {
 		return map;
 	}, [slicedRows, metric, level]);
 
-	// ✅ Only include geo locations that actually have data values
 	const geoLocations = useMemo(() => {
 		if (!geojson?.features || !feature.nameProp) return [];
 		return geojson.features
 			.map((f) => f?.properties?.[feature.nameProp])
-			.filter((name) => name && valueByName.has(name));
-	}, [geojson, feature.nameProp, valueByName]);
+			.filter(Boolean);
+	}, [geojson, feature.nameProp]);
 
 	const zValues = useMemo(() => {
-		return geoLocations.map((name) => valueByName.get(name));
+		return geoLocations.map((name) => valueByName.get(name) ?? null);
 	}, [geoLocations, valueByName]);
 
-	const hasAnyValue = zValues.some((v) => v != null && Number.isFinite(v));
-
-	// --- UI guards ---
 	if (!isMappableLevel) {
 		return (
 			<div className='rounded-xl bg-white/70 p-4 text-sm text-gray-700'>
@@ -126,26 +125,16 @@ export default function ChoroplethMap({ rows = [], level, quarter, metric }) {
 
 	if (error)
 		return <div className='p-4 text-red-600'>GeoJSON error: {error}</div>;
-	if (loading || !geojson?.features?.length)
+	if (loading || !geojson)
 		return <div className='p-4 text-gray-600'>Loading map…</div>;
 
-	// ✅ CRITICAL: Plotly geo can throw if it mounts while container width is 0
-	// (this often happens once right after switching tabs/level)
-	if (plotWrapWidth <= 0) {
-		return <div className='p-4 text-gray-600'>Preparing map…</div>;
-	}
-
-	if (!geoLocations.length || !hasAnyValue) {
+	if (geoLocations.length === 0) {
 		return (
-			<div className='rounded-xl bg-white/70 p-4 text-sm text-gray-700'>
-				No mappable data for <b>{capitalizeString(level)}</b> • Q
-				<b>{quarter}</b> • <b>{metricNiceName(metric)}</b>.
+			<div className='p-4 text-sm text-gray-700'>
+				GeoJSON loaded but has no features for level: <b>{level}</b>
 			</div>
 		);
 	}
-
-	// ✅ Remount Plotly when level OR container width changes (most reliable for geo)
-	const plotKey = `choropleth-${level}-${plotWrapWidth}`;
 
 	return (
 		<div
@@ -168,7 +157,6 @@ export default function ChoroplethMap({ rows = [], level, quarter, metric }) {
 				`}
 			>
 				<Plot
-					key={plotKey}
 					data={[
 						{
 							type: 'choropleth',
@@ -192,7 +180,7 @@ export default function ChoroplethMap({ rows = [], level, quarter, metric }) {
 								yanchor: 'bottom',
 								len: colorbarLen,
 								thickness: colorbarThickness,
-								tickformat: '.2f',
+								tickformat: '.2f', // ✅ keep .2f
 							},
 						},
 					]}
@@ -200,14 +188,8 @@ export default function ChoroplethMap({ rows = [], level, quarter, metric }) {
 						title: null,
 						dragmode: false,
 						geo: {
-							// ✅ only fitbounds when safe
-							fitbounds: hasAnyValue ? 'locations' : false,
-
-							// ✅ avoid geo.visible:false
-							showframe: false,
-							showcoastlines: false,
-							showland: false,
-
+							fitbounds: 'locations',
+							visible: false,
 							projection: { type: 'mercator', scale: projectionScale },
 						},
 						margin,

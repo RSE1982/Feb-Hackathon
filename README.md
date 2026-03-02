@@ -6,41 +6,71 @@ This app has been created as a project during [Code Institute](https://codeinsti
 
 ![An image showing the website being responsive across multiple devices](/responsive-image.png)
 
+## Table of Contents
+- [Wellbeing Pulse](#wellbeing-pulse)
+  - [Table of Contents](#table-of-contents)
+  - [Website Goals](#website-goals)
+    - [Wellbeing \& Loneliness Dashboard](#wellbeing--loneliness-dashboard)
+    - [Make Wellbeing Data Understandable](#make-wellbeing-data-understandable)
+  - [User Experience](#user-experience)
+    - [User Stories](#user-stories)
+    - [First Time User](#first-time-user)
+    - [Returning User](#returning-user)
+    - [Frequent User Goals](#frequent-user-goals)
+  - [Design](#design)
+    - [Colour Scheme](#colour-scheme)
+    - [Imagery](#imagery)
+    - [End Product Design Changes](#end-product-design-changes)
+    - [Data Visualisation Design](#data-visualisation-design)
+      - [Trend Line Chart](#trend-line-chart)
+      - [Loneliness Distribution Bar Chart](#loneliness-distribution-bar-chart)
+      - [Choropleth Map](#choropleth-map)
+    - [Typography](#typography)
+    - [Design Philosophy](#design-philosophy)
+  - [Features](#features)
+  - [Existing Features](#existing-features)
+    - [Dashboard Home (Landing dashboard view)](#dashboard-home-landing-dashboard-view)
+    - [Level Selection (National / Country / Region)](#level-selection-national--country--region)
+    - [Filters Panel](#filters-panel)
+    - [KPI Summary Cards](#kpi-summary-cards)
+    - [Trend Line Chart](#trend-line-chart-1)
+    - [Comparison Bar Chart](#comparison-bar-chart)
+    - [Choropleth Map](#choropleth-map-1)
+    - [Responsive Design](#responsive-design)
+  - [Technologies Used](#technologies-used)
+    - [Frontend](#frontend)
+      - [React](#react)
+      - [Vite](#vite)
+      - [Tailwind CSS](#tailwind-css)
+    - [Data Visualization](#data-visualization)
+      - [react-plotly.js](#react-plotlyjs)
+      - [Plotly.js](#plotlyjs)
+    - [Data \& Logic](#data--logic)
+      - [JSON Data Source](#json-data-source)
+      - [Custom Hooks](#custom-hooks)
+      - [Memoization](#memoization)
+  - [Deployment and local development](#deployment-and-local-development)
+    - [GitHub Pages (Vite + GitHub Actions)](#github-pages-vite--github-actions)
+    - [2. Enable GitHub Pages](#2-enable-github-pages)
+    - [3. Deployment Workflow](#3-deployment-workflow)
+    - [4. Deploying Updates](#4-deploying-updates)
+    - [5. Live Site](#5-live-site)
+  - [Forking the Repository](#forking-the-repository)
+  - [Local Clone](#local-clone)
+    - [1. Clone the Repository](#1-clone-the-repository)
+    - [2. Open Terminal or Git Bash](#2-open-terminal-or-git-bash)
+    - [3. Clone the Repository](#3-clone-the-repository)
+    - [4. Install Dependencies](#4-install-dependencies)
+    - [5. Run the Development Server](#5-run-the-development-server)
+    - [6. Build for Production (Optional)](#6-build-for-production-optional)
+  - [Important Notes (Vite + GitHub Pages)](#important-notes-vite--github-pages)
+  - [Summary](#summary)
+  - [Data Licensing](#data-licensing)
+  - [Credits](#credits)
 
+---
 
-## **Table of Contents**
-
-### [Website Goals](#website-goals-1)
-
-### [User Experience](#user-experience-1)
-
-   * #### [Types of Users](#types-of-users-1)
-
-   * #### [User Stories](#user-stories-1)
-
-### [Design](#design-1)
-
-   * #### Colour Scheme
-
-   * #### Typography
-
-   * #### Imagery
-
-###  [Features](#features-1)
-
-   * #### [Existing Features](#existing-features-1)
-
-
-### [Technologies Used](#technologies-used-1)
-
-### [Frameworks, Libraries & Programs Used](#frameworks-libraries--programs-used-1)
-
-### [Deployment and local development](#deployment-1)
-
-### [Credits](#credits-1)
------
-
-## [Website Goals](#website-goals-1)
+## Website Goals
 
 ### Wellbeing & Loneliness Dashboard
 
@@ -50,66 +80,67 @@ The goal of this project is to create an interactive, emotionally meaningful dat
 
 We took a public UK ONS(Office for National Statistics) dataset on personal wellbeing and loneliness (Jan 2025–Jan 2026) and transformed this cleaned statistical data into clear, interactive visualisations so users can:
 
-* Track wellbeing trends over time
+- Track wellbeing trends over time
 
-* Compare countries and regions within the UK
+- Compare countries and regions within the UK
 
-* Understand loneliness patterns
+- Understand loneliness patterns
 
-* Explore anxiety and happiness changes
+- Explore anxiety and happiness changes
 
 The dashboard turns raw JSON data into something human-readable and intuitive.
 
-----
+---
 
-## [User Experience](#user-experience-1)
+## User Experience
 
-### [User Stories](#user-stories-1)
+### User Stories
 
 To determine which approach to take with dashboard features, we identified the goals of different users — from first-time visitors exploring the data to returning and frequent users analysing trends.
 
-### [First Time User](#types-of-users-1)
+### First Time User
 
-* As a user, I want to understand what the dashboard is showing and what type of data it contains.
+- As a user, I want to understand what the dashboard is showing and what type of data it contains.
 
-* As a user, I want to understand the difference between national, country, and regional views.
+- As a user, I want to understand the difference between national, country, and regional views.
 
-* As a user, I want to easily change filters (level, quarter, metric, geography) to explore the data.
+- As a user, I want to easily change filters (level, quarter, metric, geography) to explore the data.
 
-* As a user, I want to see clear visualisations so I can quickly understand wellbeing trends without needing technical knowledge.
+- As a user, I want to see clear visualisations so I can quickly understand wellbeing trends without needing technical knowledge.
 
-* As a user, I want KPI summaries so I can grasp key figures at a glance.
+- As a user, I want KPI summaries so I can grasp key figures at a glance.
 
-* As a user, I want to understand what each metric represents (e.g., wellbeing index, anxiety, loneliness rates).
+- As a user, I want to understand what each metric represents (e.g., wellbeing index, anxiety, loneliness rates).
 
-* As a user, I want to see how wellbeing changes over time through a clear trend line chart.
+- As a user, I want to see how wellbeing changes over time through a clear trend line chart.
 
 ### Returning User
 
-* As a user, I want to revisit specific geographies (e.g., Scotland or a specific region) to check how trends have changed.
+- As a user, I want to revisit specific geographies (e.g., Scotland or a specific region) to check how trends have changed.
 
-* As a user, I want to compare different metrics (e.g., anxiety vs happiness) across quarters.
+- As a user, I want to compare different metrics (e.g., anxiety vs happiness) across quarters.
 
-* As a user, I want to identify which regions perform better or worse within a selected quarter.
+- As a user, I want to identify which regions perform better or worse within a selected quarter.
 
-* As a user, I want to explore loneliness distribution in more detail.
+- As a user, I want to explore loneliness distribution in more detail.
 
-* As a user, I want the dashboard to respond quickly when I adjust filters.
+- As a user, I want the dashboard to respond quickly when I adjust filters.
 
 ### Frequent User Goals
 
-* As a user, I want to quickly switch between geographic levels to analyse trends efficiently.
+- As a user, I want to quickly switch between geographic levels to analyse trends efficiently.
 
-* As a user, I want to identify patterns such as volatility, spikes, or improvements over time.
+- As a user, I want to identify patterns such as volatility, spikes, or improvements over time.
 
-* As a user, I want consistent layout and interaction patterns so I can navigate confidently.
+- As a user, I want consistent layout and interaction patterns so I can navigate confidently.
 
-* As a user, I want a clean, modern interface without unnecessary clutter.
+- As a user, I want a clean, modern interface without unnecessary clutter.
 
-* As a user, I want the data visualisations to feel responsive and professional.
------
+- As a user, I want the data visualisations to feel responsive and professional.
 
-## [Design](#design-1)
+---
+
+## Design
 
 ### Colour Scheme
 
@@ -243,203 +274,199 @@ Core design principles:
 
 ---
 
-## [Features](#features-1)
+## Features
 
-* View national, country, and regional wellbeing data.
+- View national, country, and regional wellbeing data.
 
-* Switch between multiple wellbeing and loneliness metrics.
+- Switch between multiple wellbeing and loneliness metrics.
 
-* Filter data by quarter.
+- Filter data by quarter.
 
-* Select specific geographies to explore trends.
+- Select specific geographies to explore trends.
 
-* View KPI summary cards for selected filters.
+- View KPI summary cards for selected filters.
 
-* Visualise trends over time using interactive line charts.
+- Visualise trends over time using interactive line charts.
 
-* Compare geographies within a selected quarter.
+- Compare geographies within a selected quarter.
 
-* View loneliness distribution through stacked bar visualisations.
+- View loneliness distribution through stacked bar visualisations.
 
-* Explore geographic patterns through a choropleth map.
+- Explore geographic patterns through a choropleth map.
 
-* Responsive across all device sizes.
+- Responsive across all device sizes.
 
-## [Existing Features](#existing-features-1)
+## Existing Features
 
 ### Dashboard Home (Landing dashboard view)
 
-* The first view when opening the site.
+- The first view when opening the site.
 
-* Displays selected level, quarter, metric, and geography clearly in the header.
+- Displays selected level, quarter, metric, and geography clearly in the header.
 
-* Provides an immediate overview of wellbeing data through KPI cards and charts.
+- Provides an immediate overview of wellbeing data through KPI cards and charts.
 
-* Clean, modern layout designed for quick comprehension.
+- Clean, modern layout designed for quick comprehension.
 
 ### Level Selection (National / Country / Region)
 
-* Allows users to switch between:
+- Allows users to switch between:
 
-* GB National (Great Britain)
+- GB National (Great Britain)
+  - Country (England, Scotland, Wales)
 
-   * Country (England, Scotland, Wales)
+  - Region (English regions)
 
-   * Region (English regions)
+- Automatically updates filters and visualisations based on selection.
 
-* Automatically updates filters and visualisations based on selection.
-
-* Keeps state minimal and derived from user interaction.
+- Keeps state minimal and derived from user interaction.
 
 ### Filters Panel
 
-* Allows users to:
+- Allows users to:
+  - Select quarter (Q1–Q4)
 
-   * Select quarter (Q1–Q4)
+  - Select metric (wellbeing index, happiness, anxiety, loneliness, etc.)
 
-   * Select metric (wellbeing index, happiness, anxiety, loneliness, etc.)
+  - Select geography (based on chosen level)
 
-   * Select geography (based on chosen level)
+- All charts and KPIs update dynamically when filters change.
 
-* All charts and KPIs update dynamically when filters change.
-
-* Ensures users can explore data intuitively.
+- Ensures users can explore data intuitively.
 
 ### KPI Summary Cards
 
-* Displays key metric values for the selected level, quarter, and geography.
+- Displays key metric values for the selected level, quarter, and geography.
 
-* Provides quick insight without requiring users to analyse charts.
+- Provides quick insight without requiring users to analyse charts.
 
-* Designed for clarity and immediate understanding.
+- Designed for clarity and immediate understanding.
 
 ### Trend Line Chart
 
-* Shows how the selected metric changes over time for the chosen geography.
+- Shows how the selected metric changes over time for the chosen geography.
 
-* Uses Plotly interactive charts.
+- Uses Plotly interactive charts.
 
-* Allows users to visually identify:
+- Allows users to visually identify:
+  - Trends
 
-   * Trends
+  - Spikes
 
-   * Spikes
+  - Stability
 
-   * Stability
+  - Volatility
 
-   * Volatility
-
-* Responds dynamically to filter changes.
+- Responds dynamically to filter changes.
 
 ### Comparison Bar Chart
 
-* Displays selected metric across all geographies within the chosen level and quarter.
+- Displays selected metric across all geographies within the chosen level and quarter.
 
-* Helps users identify:
+- Helps users identify:
+  - Best performing geography
 
-   * Best performing geography
+  - Lowest performing geography
 
-   * Lowest performing geography
+  - Relative ranking
 
-   * Relative ranking
-
-* Encourages comparative insight.
+- Encourages comparative insight.
 
 ### Choropleth Map
 
-* Geographic visualisation of wellbeing metrics.
+- Geographic visualisation of wellbeing metrics.
 
-* Highlights regional patterns and potential hotspots.
+- Highlights regional patterns and potential hotspots.
 
-* Provides strong visual storytelling impact.
+- Provides strong visual storytelling impact.
 
-* Enables users to quickly interpret geographic differences.
+- Enables users to quickly interpret geographic differences.
 
 ### Responsive Design
 
-* Optimised for desktop, tablet, and mobile devices.
+- Optimised for desktop, tablet, and mobile devices.
 
-* Charts resize dynamically.
+- Charts resize dynamically.
 
-* Layout adjusts for smaller screens without losing usability.
------
+- Layout adjusts for smaller screens without losing usability.
 
-## [Technologies Used](#technologies-used-1)
+---
+
+## Technologies Used
 
 ### Frontend
 
 #### React
 
-* Used as the core framework for building the user interface.
+- Used as the core framework for building the user interface.
 
-* Component-driven architecture supports reusability and clarity.
+- Component-driven architecture supports reusability and clarity.
 
-* Makes dynamic filtering and data-driven rendering straightforward.
+- Makes dynamic filtering and data-driven rendering straightforward.
 
 #### Vite
 
-* A fast frontend build tool that supports React out of the box.
+- A fast frontend build tool that supports React out of the box.
 
-* Provides instant server start and lightning-fast hot-module replacement.
+- Provides instant server start and lightning-fast hot-module replacement.
 
-* Ideal for modern JS application development and deployment workflows.
+- Ideal for modern JS application development and deployment workflows.
 
 #### Tailwind CSS
 
-* Utility-first styling framework for rapid UI development.
+- Utility-first styling framework for rapid UI development.
 
-* Provides consistent spacing, typography, and responsive design without writing traditional CSS.
+- Provides consistent spacing, typography, and responsive design without writing traditional CSS.
 
-* Helps enforce a clean, modern visual design across the dashboard.
+- Helps enforce a clean, modern visual design across the dashboard.
 
 ### Data Visualization
 
 #### react-plotly.js
 
-* The React wrapper for Plotly charts.
+- The React wrapper for Plotly charts.
 
-* Enables highly interactive charts that respond to user filters.
+- Enables highly interactive charts that respond to user filters.
 
-* Used to render:
+- Used to render:
+  - Trend line charts (wellbeing over time)
 
-   * Trend line charts (wellbeing over time)
+  - Comparison bar charts (side-by-side geographies)
 
-   * Comparison bar charts (side-by-side geographies)
-
-   * Stacked bar charts (loneliness distribution)
+  - Stacked bar charts (loneliness distribution)
 
 #### Plotly.js
 
-* The underlying charting library powering all visualisations.
+- The underlying charting library powering all visualisations.
 
-* Offers tooltips, smooth transitions, and responsive designs
+- Offers tooltips, smooth transitions, and responsive designs
 
 ### Data & Logic
 
 #### JSON Data Source
 
-* The cleaned dataset wellbeing_master.json drives all visualisation, filtering, and insight generation.
+- The cleaned dataset wellbeing_master.json drives all visualisation, filtering, and insight generation.
 
-* Loaded once and shared across components via a custom hook.
+- Loaded once and shared across components via a custom hook.
 
 #### Custom Hooks
 
-* useWellbeingData() handles:
+- useWellbeingData() handles:
+  - Fetching the data
 
-   * Fetching the data
+  - Deriving lists like quarters, metrics, geographies
 
-   * Deriving lists like quarters, metrics, geographies
-
-   * Exposing data for filtering and use in components
+  - Exposing data for filtering and use in components
 
 #### Memoization
 
-* useMemo is used to derive filtered datasets efficiently.
+- useMemo is used to derive filtered datasets efficiently.
 
-* Prevents unnecessary recalculations and improves performance.
------
+- Prevents unnecessary recalculations and improves performance.
 
-## [Deployment and local development](#deployment-1)
+---
+
+## Deployment and local development
 
 ### GitHub Pages (Vite + GitHub Actions)
 
@@ -447,8 +474,8 @@ This project is deployed using GitHub Pages with GitHub Actions to automatically
 
 To deploy the live version of the website:
 
-* Log in to GitHub and locate the repository
-   * Open the project [repository:](https://github.com/Wxrren/Feb-Hackathon)
+- Log in to GitHub and locate the repository
+  - Open the project [repository:](https://github.com/Wxrren/Feb-Hackathon)
 
 ### 2. Enable GitHub Pages
 
@@ -499,7 +526,7 @@ It may take **1–3 minutes** for the updated version to appear.
 
 Once deployed, the live site can be accessed at:
 
- https://wxrren.github.io/Feb-Hackathon/
+https://wxrren.github.io/Feb-Hackathon/
 
 You can also find this link under:
 
@@ -586,7 +613,7 @@ The compiled output is located in:
 - The `base` setting in `vite.config.js` must be:
 
   ```js
-  base: "/Feb-Hackathon/";
+  base: '/Feb-Hackathon/';
   ```
 
 - The workflow builds from:
@@ -608,11 +635,20 @@ Deployment is fully automated:
 
 No manual uploading is required.
 
-## [Credits](#credits-1)
+## Data Licensing
+
+Contains Ordnance Survey, Office of National Statistics, National Records Scotland and LPS Intellectual Property data © Crown copyright and database right [2016].
+
+Licensed under the Open Government Licence v3.0:
+http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3
+
+See LICENSE_DATA.md for full attribution details.
+
+## Credits
 
 This Project was created by the Wellbeing Pulse team.
 
-[Chrysanthus](https://github.com/chrysanthusobinna)
-[Robert S. Elliott](https://github.com/RSE1982)
-[Simon](https://github.com/motogoatUK)
-[Warren Smith](https://github.com/Wxrren)
+- [Chrysanthus](https://github.com/chrysanthusobinna)
+- [Robert S. Elliott](https://github.com/RSE1982)
+- [Simon](https://github.com/motogoatUK)
+- [Warren Smith](https://github.com/Wxrren)
